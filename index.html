@@ -1,466 +1,442 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-  <title>2EMME — Guide (Mobile)</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-  <style>
-    /* Mobile-first styles */
-    :root{
-      --c-ottanio:#00383D;
-      --c-sugar:#BFEBFF;
-      --c-white:#FFFFFF;
-      --glass-bg:rgba(255,255,255,0.04);
-      --glass-border:rgba(191,235,255,0.08);
-      --radius:14px;
-      --touch:16px;
-    }
-    html,body{height:100%;margin:0;font-family:Inter, 'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--c-white);background:linear-gradient(180deg,#002e2f,#00383d 60%);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-    /* Intro overlay (mobile friendly) */
-    #intro-overlay{position:fixed;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:20px;box-sizing:border-box;z-index:9999}
-    .intro-card{width:100%;max-width:820px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);backdrop-filter:blur(8px);padding:18px;box-sizing:border-box;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
-    .intro-row{display:flex;gap:12px;align-items:center}
-    .intro-left{flex:0 0 92px;text-align:left}
-    .intro-left .temp{font-weight:800;font-size:28px;color:var(--c-sugar)}
-    .intro-main{flex:1}
-    .intro-title{font-family: 'Playfair Display', serif;font-size:22px;margin:0 0 6px 0;color:var(--c-sugar)}
-    .intro-sub{font-size:15px;margin:0;color:rgba(255,255,255,0.92)}
-    .intro-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:12px 14px;font-weight:700;font-size:15px;border:none;cursor:pointer}
-    .btn-primary{background:linear-gradient(90deg,#BF953F,#FCF6BA);color:#000}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--c-white)}
-    .muted{color:rgba(255,255,255,0.78);font-size:13px}
-    .small-muted{color:rgba(255,255,255,0.6);font-size:12px}
-    /* App shell mobile */
-    #main-app{display:none;height:100vh;overflow:auto;padding-bottom:80px;box-sizing:border-box}
-    header.app-header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.06));backdrop-filter:blur(6px);padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;gap:12px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand .logo{width:44px;height:44;border-radius:10px;background:#002b2c;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--c-sugar)}
-    .brand h1{margin:0;font-size:16px;font-weight:800}
-    .brand p{margin:0;font-size:11px;color:var(--c-sugar)}
-    .header-actions{margin-left:auto;display:flex;gap:8px}
-    .container{padding:14px}
-    .panel{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:12px;margin-bottom:12px}
-    .controls{display:flex;gap:8px;flex-wrap:wrap}
-    select,input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--c-white);font-size:15px;-webkit-appearance:none}
-    .row{display:flex;gap:8px}
-    .row .col{flex:1}
-    .planner-result{margin-top:10px}
-    .route-box{background:rgba(0,0,0,0.16);border-radius:10px;padding:10px;border:1px solid rgba(255,255,255,0.03)}
-    .timeline{margin-top:8px}
-    .tl-item{border-left:3px solid rgba(191,235,255,0.08);padding:10px 12px;margin-bottom:10px;border-radius:8px;background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent)}
-    .service-box .svc{margin-bottom:12px}
-    .svc .title{font-weight:700}
-    footer{position:fixed;left:0;right:0;bottom:0;padding:10px 14px;background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.12));text-align:center;font-size:13px;color:rgba(255,255,255,0.7)}
-    /* responsive larger screens keep single-col but center */
-    @media(min-width:821px){
-      #intro-overlay{align-items:center}
-      .intro-card{max-width:760px}
-      .container{max-width:980px;margin:0 auto;padding:18px}
-      #main-app{padding-bottom:100px}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#004D54">
+    <title>2EMME | Prestige Guide</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- SYSTEM VARIABLES --- */
+        :root {
+            --c-ottanio: #004D54;
+            --c-sugar: #BFEBFF;
+            --c-white: #FFFFFF;
+            --c-magenta: #DB4F61;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(191, 235, 255, 0.2);
+        }
+
+        body { 
+            background-color: var(--c-ottanio); color: var(--c-white); 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none; /* Previene rimbalzo su iOS */
+            margin: 0; height: 100vh; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        /* --- BACKGROUNDS --- */
+        #bg-container { 
+            position: fixed; inset: 0; z-index: -1; 
+            background-color: #000; transition: all 1s ease; 
+            background-size: cover; background-position: center; 
+            opacity: 0.6; filter: brightness(0.8);
+        }
+        /* Immagini Online garantite */
+        .bg-fusion { background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1569683795645-b62e50fbf103?q=80&w=1974'); }
+        .bg-boston { background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1505886603762-b94f971887e2?q=80&w=1974'); }
+        .bg-nyc { background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1496442226666-8d4a0e29e128?q=80&w=1974'); }
+
+        /* --- INTRO LAYERS --- */
+        #intro-overlay, #bday-overlay {
+            position: fixed; inset: 0; z-index: 9999; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #000; transition: opacity 0.8s ease-in-out;
+        }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; line-height: 1; color: white; margin-bottom: 10px; text-shadow: 0 4px 20px rgba(0,0,0,0.5); text-align: center;}
+        
+        /* --- MOBILE LAYOUT --- */
+        .app-header { padding: 20px 20px 10px 20px; flex-shrink: 0; z-index: 50; }
+        .app-content { flex: 1; overflow-y: auto; padding: 0 20px 100px 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        
+        /* --- UI COMPONENTS --- */
+        .glass-panel { 
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+            border-radius: 20px; padding: 20px; margin-bottom: 16px; 
+        }
+        .glass-icon { 
+            display: inline-flex; align-items: center; justify-content: center; 
+            width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: var(--c-sugar); 
+        }
+        
+        /* Buttons & Chips */
+        .city-switch-container { background: rgba(0,0,0,0.3); border-radius: 99px; padding: 4px; display: flex; margin-bottom: 15px; border: 1px solid var(--glass-border); }
+        .city-btn { flex: 1; padding: 12px; border-radius: 99px; font-size: 12px; font-weight: 700; text-transform: uppercase; color: rgba(255,255,255,0.5); transition: 0.3s; }
+        .city-btn.active { background: var(--c-sugar); color: var(--c-ottanio); box-shadow: 0 4px 15px rgba(191,235,255,0.3); }
+
+        .cat-chip { 
+            padding: 14px; border-radius: 16px; border: 1px solid var(--glass-border); 
+            background: rgba(0,0,0,0.2); color: rgba(255,255,255,0.7); 
+            font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; 
+            width: 100%; transition: 0.2s; touch-action: manipulation;
+        }
+        .cat-chip:active { transform: scale(0.98); }
+        .cat-chip.selected { background: var(--c-sugar); color: var(--c-ottanio); font-weight: 800; border-color: var(--c-sugar); box-shadow: 0 0 20px rgba(191,235,255,0.2); }
+
+        .mode-toggle { display: flex; margin: 15px 0; background: rgba(0,0,0,0.3); border-radius: 99px; padding: 4px; border: 1px solid var(--glass-border); position: relative; }
+        .mode-option { flex: 1; text-align: center; padding: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; z-index: 2; color: rgba(255,255,255,0.6); transition: 0.3s; }
+        .mode-option.active { color: var(--c-ottanio); }
+        .mode-blob { position: absolute; top: 4px; bottom: 4px; width: calc(50% - 4px); background: var(--c-sugar); border-radius: 99px; transition: left 0.3s; z-index: 1; }
+
+        /* CONTENT STYLES */
+        .card-title { font-size: 18px; font-weight: 700; color: white; line-height: 1.2; margin: 0; }
+        .card-sub { font-size: 11px; color: var(--c-sugar); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .card-desc { font-size: 13px; color: #e0e0e0; font-weight: 400; margin: 12px 0; line-height: 1.6; }
+        
+        .action-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; flex: 1; text-align: center; }
+        .btn-primary { background: var(--c-sugar); color: var(--c-ottanio); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .btn-secondary { border: 1px solid var(--c-sugar); color: var(--c-sugar); background: rgba(191,235,255,0.05); }
+
+        /* MUSEUM SPECIFIC */
+        .time-btn-container { display: flex; gap: 8px; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        .time-btn { flex: 1; padding: 10px; border: 1px solid var(--glass-border); border-radius: 10px; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05); transition: 0.2s; }
+        .time-btn.active { background: var(--c-sugar); color: var(--c-ottanio); border-color: var(--c-sugar); }
+        
+        .artwork-list { display: none; margin-top: 15px; animation: fadeIn 0.3s; }
+        .artwork-item { display: flex; gap: 12px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .artwork-number { width: 22px; height: 22px; border-radius: 50%; background: var(--c-ottanio); border: 1px solid var(--c-sugar); color: var(--c-sugar); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; flex-shrink: 0; margin-top: 2px; }
+        
+        /* PLANNER */
+        .planner-box { background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px; border: 1px solid var(--glass-border); }
+        .planner-select { width: 100%; background: rgba(255,255,255,0.1); color: white; padding: 14px; border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.2); outline: none; font-size: 14px; }
+        .planner-select option { background: #004D54; color: white; }
+
+        /* TAXI & BDAY */
+        #taxi-overlay { position: fixed; inset: 0; background: #000; z-index: 100; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+        #taxi-overlay.active { display: flex; animation: fadeIn 0.2s; }
+        
+        .gold-text { font-family: 'Playfair Display', serif; background: linear-gradient(90deg, #BF953F, #FCF6BA, #B38728, #FBF5B7); -webkit-background-clip: text; color: transparent; animation: shine 3s infinite; }
+        
+        @keyframes shine { to { background-position: 200% center; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
 </head>
 <body>
 
-  <!-- INTRO (mobile-first, no date/birthday logic) -->
-  <div id="intro-overlay" role="dialog" aria-modal="true">
-    <div class="intro-card" aria-label="Intro 2EMME Guide">
-      <div class="intro-row">
-        <div class="intro-left">
-          <div class="small-muted">Meteo locale</div>
-          <div id="intro-weather-temp" class="temp">--°C</div>
-          <div id="intro-weather-desc" class="small-muted">Caricamento…</div>
-        </div>
-        <div class="intro-main">
-          <h2 class="intro-title">Ciao Giada</h2>
-          <p class="intro-sub">Are u ready to explore?<br><span class="muted">Il meteo locale appare se autorizzi la posizione. Se preferisci, apri senza posizione.</span></p>
+    <div id="bg-container"></div>
 
-          <div class="intro-actions">
-            <button id="enter-guide" class="btn btn-primary">Enter The Guide</button>
-            <button id="enter-no-geo" class="btn btn-ghost">Apri senza posizione</button>
-          </div>
-        </div>
-      </div>
+    <div id="intro-overlay">
+        <div class="glass-icon w-20 h-20 rounded-2xl text-4xl mb-6 bg-white/10"><i class="fa-solid fa-gem"></i></div>
+        <h1 id="intro-title" class="hero-title">Ciao Giada</h1>
+        <p id="intro-sub" class="text-[#BFEBFF] text-sm tracking-[0.3em] uppercase font-bold">Ready for takeoff?</p>
+        <button onclick="enterApp()" class="mt-12 px-10 py-4 border border-[#BFEBFF] text-[#BFEBFF] rounded-full uppercase text-xs font-bold tracking-widest hover:bg-[#BFEBFF] hover:text-[#004D54] transition">ENTRA</button>
     </div>
-  </div>
 
-  <!-- APP -->
-  <div id="main-app" aria-hidden="true">
-    <header class="app-header">
-      <div class="brand">
-        <div class="logo"><i class="fa-solid fa-gem"></i></div>
-        <div>
-          <h1>2EMME — Guide</h1>
-          <p>Interactive planner — concierge & itineraries</p>
+    <div id="bday-overlay">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550926065-2741979b002c')] bg-cover opacity-60"></div>
+        <div id="bottle-scene" class="bottle-container mb-8 relative z-10">
+            <i class="fa-solid fa-champagne-glasses text-8xl text-[#FFD700] animate-bounce"></i>
         </div>
-      </div>
-      <div class="header-actions" aria-hidden="false">
-        <button id="open-planner" class="btn btn-primary">Planner</button>
-      </div>
-    </header>
-
-    <div class="container">
-      <!-- Planner panel -->
-      <section class="panel" aria-labelledby="planner-title">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div id="planner-title" style="font-weight:800">Concierge Planner</div>
-          <div class="small-muted">Timezone: Europe/Rome</div>
+        <div class="text-center z-10">
+            <p class="text-[#FFD700] text-xs uppercase tracking-widest mb-2">Boston Edition</p>
+            <h1 class="gold-text text-9xl font-bold leading-none mb-2">50</h1>
+            <h2 class="text-3xl text-white font-serif italic">Happy Birthday!</h2>
+            <button onclick="closeBday()" class="mt-10 px-8 py-3 bg-gradient-to-r from-[#BF953F] to-[#FCF6BA] text-black font-bold rounded-full shadow-lg">Grazie! 🥂</button>
         </div>
+    </div>
 
-        <div style="margin-top:10px" class="controls">
-          <select id="city-select" aria-label="Seleziona città">
-            <option value="nyc">New York</option>
-            <option value="boston">Boston</option>
-          </select>
-
-          <select id="cat-select" aria-label="Seleziona categoria">
-            <option value="explore">Explore / Musei</option>
-            <option value="food">Food</option>
-            <option value="shopping">Shopping</option>
-          </select>
-
-          <button id="load-options" class="btn btn-primary" style="flex:1;min-width:120px">Carica proposte</button>
-        </div>
-
-        <div id="planner-area" style="margin-top:12px;display:none">
-          <div style="display:flex;gap:8px;flex-direction:column">
-            <label class="small-muted">Museo / Attrazione</label>
-            <select id="museum-select" aria-label="Museo"></select>
-
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <select id="museum-hours" aria-label="Ore" style="max-width:120px">
-                <option value="1">1h</option>
-                <option value="2" selected>2h</option>
-                <option value="3">3h</option>
-              </select>
-              <button id="gen-itinerary" class="btn btn-primary" style="flex:1">Genera itinerario</button>
-              <button id="concierge-suggest" class="btn btn-ghost" style="flex:1">Genera programma</button>
+    <div id="main-app" class="h-full flex flex-col hidden opacity-0 transition-opacity duration-500">
+        
+        <div class="app-header">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-3" onclick="triggerBday()">
+                    <div class="glass-icon bg-[#00383D]"><i class="fa-solid fa-gem"></i></div>
+                    <div><h1 class="text-xl font-bold text-white leading-none">2EMME</h1><p class="text-[#BFEBFF] text-[9px] uppercase tracking-widest mt-1">Travel Master</p></div>
+                </div>
+                <button onclick="toggleMeteo()" class="glass-icon w-auto px-4 h-9 gap-2 text-xs font-bold border-white/20"><i class="fa-regular fa-snowflake"></i> <span id="meteo-txt">Neve</span></button>
             </div>
-          </div>
-
-          <div id="planner-result" class="planner-result"></div>
+            
+            <div class="city-switch-container">
+                <button onclick="setCity('nyc')" id="btn-nyc" class="city-btn active">New York</button>
+                <button onclick="setCity('boston')" id="btn-boston" class="city-btn">Boston</button>
+            </div>
         </div>
-      </section>
 
-      <!-- Timeline / Feed -->
-      <section class="panel">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-weight:800">Timeline</div>
-          <div class="small-muted">Le tue attività</div>
+        <div class="app-content no-scrollbar">
+            
+            <div class="grid grid-cols-2 gap-2 mb-4">
+                <button onclick="setCat('planner')" id="cat-planner" class="cat-chip col-span-2 justify-center bg-[#004D54] border-[#BFEBFF] text-[#BFEBFF]"><i class="fa-solid fa-bell-concierge"></i> Concierge Planner</button>
+                <button onclick="setCat('explore')" id="cat-explore" class="cat-chip"><i class="fa-solid fa-compass"></i> Esplora</button>
+                <button onclick="setCat('food')" id="cat-food" class="cat-chip"><i class="fa-solid fa-utensils"></i> Food</button>
+                <button onclick="setCat('shopping')" id="cat-shopping" class="cat-chip"><i class="fa-solid fa-bag-shopping"></i> Shopping</button>
+                <button onclick="setCat('tips')" id="cat-tips" class="cat-chip"><i class="fa-solid fa-kit-medical"></i> Survival</button>
+                <button onclick="setCat('hotel')" id="cat-hotel" class="cat-chip"><i class="fa-solid fa-bed"></i> Hotel</button>
+                <button onclick="setCat('local')" id="cat-local" class="cat-chip"><i class="fa-solid fa-user-secret"></i> Local</button>
+            </div>
+
+            <div id="mode-control" class="mode-toggle" style="display:none;">
+                <div id="mode-blob" class="mode-blob left-1"></div>
+                <button onclick="setMode('classic')" id="opt-classic" class="mode-option active">Refined Classics</button>
+                <button onclick="setMode('niche')" id="opt-niche" class="mode-option">New & Niche</button>
+            </div>
+
+            <div id="feed" class="space-y-4"></div>
         </div>
-        <div id="timeline-content" class="timeline" style="margin-top:8px">Timeline non generata.</div>
-      </section>
-
-      <!-- Services -->
-      <section class="panel service-box">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-weight:800">Servizi locali & Prenotazioni</div>
-          <div class="small-muted">Demo disponibilità</div>
-        </div>
-        <div id="service-box" style="margin-top:10px"></div>
-      </section>
-
-      <div class="panel">
-        <div style="font-weight:800">Suggerimenti rapidi</div>
-        <ul style="margin:10px 0 0 16px;color:rgba(255,255,255,0.8);font-size:13px">
-          <li>Genera itinerario → aggiungi alla timeline → stampa voucher.</li>
-          <li>Se la prenotazione fallisce, il sistema propone alternative walk-in vicino.</li>
-        </ul>
-      </div>
     </div>
-  </div>
 
-  <footer>© 2026 2EMME Real Estate — Internal Use Only</footer>
+    <div id="taxi-overlay" onclick="closeTaxi()">
+        <p class="text-[#BFEBFF] text-xs uppercase tracking-widest mb-10">Show to Driver</p>
+        <h1 id="taxi-name" class="text-4xl font-bold text-white mb-6 px-4 leading-tight">NAME</h1>
+        <div class="bg-white text-black p-6 rounded-2xl w-full max-w-xs shadow-2xl">
+            <p id="taxi-address" class="text-2xl font-mono font-bold leading-relaxed">Address Here</p>
+        </div>
+        <p class="text-xs text-gray-500 mt-20 animate-pulse">(Tocca per chiudere)</p>
+    </div>
 
-  <script>
-    /* ===========================
-       Mobile-first Guide (no date/bday logic)
-       - kept core DB + itinerary + concierge + reservation simulation
-       - removed any date-checks, birthday UI and force-bday
-       - geolocation/meteo optional (uses open-meteo)
-       =========================== */
+    <script>
+        const CONFIG = { forceBday: false };
+        
+        // --- DATABASE ---
+        const museumRoutes = {
+            60: { '2h': [{t:'Notte Stellata', a:'Van Gogh', d:'Piano 5, Sala 502.'}, {t:'Les Demoiselles', a:'Picasso', d:'Inizio Cubismo.'}, {t:'Ninfee', a:'Monet', d:'Sala immersiva.'}], '3h': [{t:'Number 31', a:'Pollock', d:'Piano 4.'}, {t:'Soup Cans', a:'Warhol', d:'Icona Pop Art.'}], '4h': [{t:'Design Store', a:'Shopping', d:'Imperdibile.'}] },
+            70: { '2h': [{t:'Il Cortile', a:'Architettura', d:'Fiori freschi.'}, {t:'Ratto di Europa', a:'Tiziano', d:'Sala Tiziano.'}], '3h': [{t:'Sala Olandese', a:'Rembrandt', d:'Cornici vuote dei furti.'}], '4h': [{t:'Serra', a:'Natura', d:'Coltivazione fiori.'}] },
+            61: { '2h': [{t:'Biblioteca Est', a:'J.P. Morgan', d:'Tre piani di libri.'}, {t:'Studio', a:'Storia', d:'Velluto rosso.'}], '3h': [{t:'Bibbia Gutenberg', a:'Libro', d:'Rarissimo.'}], '4h': [{t:'Mostra Temporanea', a:'Info', d:'Controlla sito.'}] },
+            63: { '2h': [{t:'T-Rex', a:'Fossile', d:'Piano 4.'}, {t:'Balena Blu', a:'Modello', d:'Ocean Life.'}], '3h': [{t:'Lucy', a:'Antenato', d:'Origini umane.'}], '4h': [{t:'Planetario', a:'Space Show', d:'Biglietto extra.'}] },
+            64: { '2h': [{t:'Space Shuttle', a:'Enterprise', d:'Padiglione ponte.'}, {t:'Concorde', a:'Aereo', d:'Record velocità.'}], '3h': [{t:'Sottomarino', a:'Growler', d:'Interni missili.'}], '4h': [{t:'Simulatore', a:'G-Force', d:'Esperienza volo.'}] }
+        };
 
-    // Minimal DOM helpers
-    const $ = id => document.getElementById(id);
+        const db = [
+            // TIPS
+            { id:1, city:'nyc', cat:'tips', name:'Consolato Italiano NYC', desc:'690 Park Ave. In caso di furto passaporto.', icon:'fa-passport', phone:'+12127379100', address:'690 Park Ave', action:'Chiama', isAlert:true },
+            { id:2, city:'nyc', cat:'tips', name:'NYU Langone Hospital', desc:'Kips Bay. Pronto Soccorso H24 sicuro.', icon:'fa-hospital', address:'550 1st Ave', action:'Mappa', isAlert:true },
+            { id:4, city:'nyc', cat:'tips', name:'Regole Metro', desc:'• Uptown=Nord, Downtown=Sud.\n• Mai entrare in un vagone vuoto.', icon:'fa-train-subway', action:'' },
+            { id:5, city:'nyc', cat:'tips', name:'Rifugio Caldo', desc:'Oculus & Brookfield. Tunnel riscaldati.', icon:'fa-mug-hot', address:'185 Greenwich St', action:'Mappa' },
+            { id:6, city:'boston', cat:'tips', name:'Consolato Italiano BOS', desc:'600 Atlantic Ave.', icon:'fa-passport', phone:'+16177229201', address:'600 Atlantic Ave', action:'Chiama', isAlert:true },
+            { id:7, city:'boston', cat:'tips', name:'Mass General (MGH)', desc:'Ospedale #1. Beacon Hill.', icon:'fa-hospital', address:'55 Fruit St', action:'Mappa', isAlert:true },
+            { id:10, city:'boston', cat:'tips', name:'Rifugio Caldo', desc:'Prudential Center.', icon:'fa-snowflake', address:'800 Boylston St', action:'Mappa' },
 
-    /* ---------- Database (essenziale, esteso lato client) ---------- */
-    const DB = {
-      museums: [
-        {id:1, city:'nyc', name:'MoMA', zone:'Midtown', overview:'Il MoMA è il museo di riferimento per arte moderna e contemporanea. Sale dedicate a Van Gogh, Picasso, Warhol.', highlights:[
-          {title:'The Starry Night', author:'Vincent van Gogh (1889)', desc:'Esempio di pennellata espressiva e movimento del cielo.'},
-          {title:"Les Demoiselles d'Avignon", author:'Pablo Picasso (1907)', desc:'Svolta cubista e rottura prospettiva.'}
-        ], must:['Starry Night','Picasso — demoiselles'], alternative:['Collezioni temporanee','Bookshop'] , full:['Tour cronologico della collezione permanente + mostra temporanea']},
-        {id:2, city:'nyc', name:'The Met', zone:'Upper East Side', overview:'La collezione è enorme: antichità, pittura europea, americana, arti decorative.', highlights:[
-          {title:'The Harvesters', author:'Pieter Bruegel (1565)', desc:'Ritratto della vita contadina con ricchezza di dettaglio.'}
-        ], must:['European Paintings','American Wing'], alternative:['The Cloisters'], full:['Percorso 3h selezionato']},
-        {id:3, city:'nyc', name:'Poster House', zone:'Chelsea', overview:'Museo dedicato alla grafica del poster, storia della stampa e design.' , highlights:[
-          {title:'Advertising Posters', author:'Various', desc:'Evoluzione grafica e tecniche di stampa.'}
-        ], must:['Sezione storica poster'], alternative:['Workshop temporanei'], full:['Visita 1h–1.5h']},
-        {id:4, city:'boston', name:'MFA', zone:'Fenway', overview:'Collezioni di impressionisti e arte asiatica; Monet, Degas tra i punti forti.', highlights:[
-          {title:'Claude Monet works', author:'Claude Monet', desc:'Studio della luce e serie dei Water Lilies.'}
-        ], must:['Impressionisti','Degas'], alternative:['American Wing'], full:['Percorso 2–3h']},
-        {id:5, city:'boston', name:'MIT Museum', zone:'Cambridge', overview:'Tech, robotica e mostre su AI e innovazione.', highlights:[
-          {title:'AI & Robotics', author:'MIT teams', desc:'Installazioni interattive e prototipi.'}
-        ], must:['Robotica','AI exhibits'], alternative:['Workshops'], full:['Visita 1–2h']}
-      ],
-      explore: {
-        nyc: { classic:[{name:'MoMA'},{name:'The Met'},{name:'High Line'},{name:'Grand Central'},{name:'Whitney'}], niche:[{name:'Poster House'},{name:'Mercer Labs'},{name:'Domino Park'},{name:'Eavesdrop'},{name:'Chelsea galleries'}]},
-        boston:{ classic:[{name:'MFA'},{name:'Freedom Trail'},{name:'Public Library'},{name:'Quincy Market'},{name:'Harvard campus'}], niche:[{name:'MIT Museum'},{name:'SoWa Market'},{name:'Mapparium'},{name:'Gardner Museum'},{name:'Hidden Rooftops'}]}
-      },
-      food: {
-        nyc:{ classic:[{name:'Carbone'},{name:"Katz's Deli"},{name:'Balthazar'},{name:'Keens'},{name:'Polo Bar'}], niche:[{name:'Laser Wolf'},{name:'Misi'},{name:'Four Horsemen'},{name:'Dimes Square'},{name:'Hidden supper clubs'}]},
-        boston:{ classic:[{name:'Union Oyster House'},{name:'Neptune Oyster'},{name:'Contessa'},{name:'Tatte'},{name:'Capital Grille'}], niche:[{name:'Mikiya Wagyu'},{name:'Hecate'},{name:'Krasi'},{name:'Comfort Kitchen'},{name:'Tonino'}]}
-      },
-      shopping: {
-        nyc:{ classic:[{name:'Strand'},{name:'Fishs Eddy'},{name:'Economy Candy'},{name:'Chelsea Market'},{name:'Brookfield'}], niche:[{name:'Dover Street'},{name:'Showfields'},{name:'Kith'},{name:'Popups'},{name:'Vintage LES'}]},
-        boston:{ classic:[{name:'Brattle'},{name:'Beacon Hill'},{name:'Harvard Sq'},{name:'Prudential'},{name:'Newbury'}], niche:[{name:'SoWa'},{name:'Independent shops'},{name:'Artisan markets'},{name:'Concept stores'},{name:'Sneaker boutiques'}]}
-      },
-      services: {
-        nyc:{ food:[{name:'Carbone', zone:'Village', link:'https://resy.com/cities/new-york-ny/venues/carbone'},{name:"Katz's Deli", zone:'LES', link:'https://katzsdelicatessen.com/'}],
-              coffee:[{name:'Blue Bottle', zone:'Chelsea'},{name:'Stumptown', zone:'Village'}],
-              spa:[{name:'Great Jones Spa', zone:'NoHo'},{name:'AIRE Ancient Baths', zone:'Tribeca'}],
-              manicure:[{name:'Paintbox', zone:'SoHo'},{name:'Olive & June', zone:'Chelsea'}]
-            },
-        boston:{ food:[{name:'Union Oyster House', zone:'North End', link:'https://www.unionoysterhouse.com'},{name:'Neptune Oyster', zone:'North End'}],
-                 coffee:[{name:'Tatte', zone:'Back Bay'}],
-                 spa:[{name:'Exhale Back Bay', zone:'Back Bay'},{name:'G2O', zone:'Seaport'}],
-                 manicure:[{name:'Paint Nail Bar', zone:'Back Bay'}]
-               }
-      }
-    };
+            // MUSEI
+            { id:60, city:'nyc', cat:'explore', mode:'classic', name:'MoMA', address:'11 W 53rd St', desc:'Arte moderna.', icon:'fa-paint-brush', hasRoutes:true },
+            { id:61, city:'nyc', cat:'explore', mode:'classic', name:'Morgan Library', address:'225 Madison', desc:'Biblioteca storica.', icon:'fa-book-open', hasRoutes:true },
+            { id:63, city:'nyc', cat:'explore', mode:'classic', name:'Natural History', address:'Central Park W', desc:'Dinosauri.', icon:'fa-dragon', hasRoutes:true },
+            { id:64, city:'nyc', cat:'explore', mode:'niche', name:'Intrepid Museum', address:'Pier 86', desc:'Portaerei.', icon:'fa-jet-fighter', hasRoutes:true },
+            { id:70, city:'boston', cat:'explore', mode:'classic', name:'Gardner Museum', address:'25 Evans Way', desc:'Cortile fiorito.', icon:'fa-leaf', hasRoutes:true },
+            { id:72, city:'boston', cat:'explore', mode:'classic', name:'MFA', address:'465 Huntington', desc:'Museo d\'Arte.', icon:'fa-landmark', hasRoutes:true },
+            { id:73, city:'boston', cat:'explore', mode:'classic', name:'JFK Library', address:'Columbia Point', desc:'Storia JFK.', icon:'fa-flag-usa' },
+            { id:75, city:'boston', cat:'explore', mode:'niche', name:'MIT Museum', address:'314 Main St', desc:'Robotica e AI.', icon:'fa-robot' },
 
-    /* ---------- Meteo (opzionale) ---------- */
-    async function fetchWeather(lat, lon){
-      try{
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=Europe%2FRome`;
-        const r = await fetch(url);
-        if(!r.ok) throw new Error('Meteo non disponibile');
-        return await r.json();
-      }catch(e){ return null; }
-    }
+            // SHOPPING
+            { id:100, city:'nyc', cat:'shopping', mode:'classic', name:'Fishs Eddy', address:'889 Broadway', desc:'Piatti skyline NY.', icon:'fa-kitchen-set', action:'Mappa' },
+            { id:101, city:'nyc', cat:'shopping', mode:'classic', name:'Strand Bookstore', address:'828 Broadway', desc:'Libreria 18 miles.', icon:'fa-book', action:'Mappa' },
+            { id:103, city:'nyc', cat:'shopping', mode:'niche', name:'Dover Street Market', address:'160 Lexington', desc:'Moda avanguardia.', icon:'fa-shirt', action:'Mappa' },
+            { id:106, city:'boston', cat:'shopping', mode:'classic', name:'Black Ink', address:'101 Charles St', desc:'Oggetti curiosi.', icon:'fa-pen-nib', action:'Mappa' },
+            { id:109, city:'boston', cat:'shopping', mode:'niche', name:'Bodega', address:'6 Clearway St', desc:'Sneaker shop segreto.', icon:'fa-user-secret', action:'Mappa' },
 
-    async function tryShowWeatherWithGeo(){
-      let coords = null;
-      try{
-        coords = await new Promise((res,rej)=> navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lon:p.coords.longitude}), e=>rej(e), {timeout:7000}));
-      }catch(e){ coords=null; }
-      if(!coords){
-        // fallback to city selection default (NYC)
-        coords = {lat:40.7128, lon:-74.0060};
-      }
-      const data = await fetchWeather(coords.lat, coords.lon);
-      if(data && data.current_weather){
-        const c = data.current_weather;
-        $('intro-weather-temp').innerText = Math.round(c.temperature) + '°C';
-        $('intro-weather-desc').innerText = `Vento ${Math.round(c.windspeed)} km/h`;
-      } else {
-        $('intro-weather-temp').innerText = '--°C';
-        $('intro-weather-desc').innerText = 'Meteo non disponibile';
-      }
-    }
+            // FOOD
+            { id:11, city:'nyc', cat:'food', mode:'classic', name:'Carbone', zone:'Village', desc:'Italiano Iconico.', dish:'Spicy Rigatoni', cost:'$100+', icon:'fa-utensils', link:'https://resy.com' },
+            { id:13, city:'nyc', cat:'food', mode:'classic', name:'Keens Steak', zone:'Midtown', desc:'Storica (1885).', dish:'Mutton Chop', cost:'$90', icon:'fa-drumstick-bite', link:'https://resy.com' },
+            { id:16, city:'nyc', cat:'food', mode:'niche', name:'Laser Wolf', zone:'Brooklyn', desc:'Israeliano Rooftop.', dish:'Salatim', cost:'$70', icon:'fa-fire', link:'https://resy.com' },
+            { id:30, city:'boston', cat:'food', mode:'classic', name:'Contessa', zone:'Back Bay', desc:'Rooftop Vetrato.', dish:'Lobster Rigatoni', cost:'$90', icon:'fa-city', link:'https://opentable.com' },
+            { id:31, city:'boston', cat:'food', mode:'classic', name:'Union Oyster', zone:'North End', desc:'Antico (1826).', dish:'Clam Chowder', cost:'$50', icon:'fa-fish', link:'https://opentable.com' },
+            { id:35, city:'boston', cat:'food', mode:'niche', name:'Mikiya Wagyu', zone:'Chinatown', desc:'Shabu Lusso.', dish:'Wagyu', cost:'$98', icon:'fa-fire-burner', link:'#' },
 
-    /* ---------- UI behavior ---------- */
-    window.addEventListener('load', async ()=>{
-      // show intro: weather attempted but no date/bday logic
-      try { await tryShowWeatherWithGeo(); } catch(e){ /* ignore */ }
-    });
+            // HOTELS
+            { id:20, city:'nyc', cat:'hotel', mode:'classic', name:'The Plaza', desc:'Icona.', price:'$$$$', icon:'fa-hotel' },
+            { id:25, city:'nyc', cat:'hotel', mode:'niche', name:'The Ludlow', desc:'Cool vibes.', price:'$$$', icon:'fa-bath' }
+        ];
 
-    $('enter-guide').addEventListener('click', ()=>{ $('intro-overlay').style.display='none'; $('main-app').style.display='block'; $('main-app').scrollTop=0; });
-    $('enter-no-geo').addEventListener('click', ()=>{ $('intro-overlay').style.display='none'; $('main-app').style.display='block'; });
+        let state = { city:'nyc', cat:'planner', mode:'classic', weather:'snow' };
 
-    // planner controls
-    $('load-options').addEventListener('click', ()=>{
-      const city = $('city-select').value;
-      const cat = $('cat-select').value;
-      if(cat === 'explore'){
-        // populate museum-select with curated + detailed
-        const curated = (DB.explore[city].classic || []).concat(DB.explore[city].niche || []);
-        const sel = $('museum-select'); sel.innerHTML = '';
-        curated.forEach(it => { const opt = document.createElement('option'); opt.value = it.name; opt.text = it.name; sel.appendChild(opt); });
-        // also detailed museums
-        DB.museums.filter(m => m.city === city).forEach(m => {
-          if(!Array.from(sel.options).some(o => o.value === m.name)){
-            const opt = document.createElement('option'); opt.value=m.name; opt.text=m.name; sel.appendChild(opt);
-          }
-        });
-        $('planner-area').style.display = 'block';
-      } else {
-        // fill service-box
-        const box = $('service-box'); box.innerHTML = '';
-        const list = (cat === 'food') ? (DB.food[city].classic.concat(DB.food[city].niche)) : (DB.shopping[city].classic.concat(DB.shopping[city].niche));
-        list.slice(0,8).forEach(item => {
-          const el = document.createElement('div'); el.className='svc';
-          el.innerHTML = `<div class="title">${item.name}</div><div class="small-muted" style="margin-top:6px">${item.zone||''} ${item.desc?('• '+(item.desc||'')):''}</div>
-            <div style="margin-top:8px"><button class="btn btn-primary" style="width:100%" onclick="checkReservation('${city}','${escapeHtml(item.name)}','${escapeHtml(item.zone||'')}','${escapeHtml(item.link||'')}')">Verifica prenotazione</button></div>`;
-          box.appendChild(el);
-        });
-        $('planner-area').style.display = 'none';
-      }
-    });
-
-    $('gen-itinerary').addEventListener('click', ()=> {
-      const museumName = $('museum-select').value;
-      const hours = parseInt($('museum-hours').value,10) || 2;
-      if(!museumName) return alert('Seleziona un museo/attrazione.');
-      const m = DB.museums.find(x => x.name === museumName) || {name:museumName, overview:'', highlights:[], must:[], alternative:[], full:[]};
-      const it = buildMuseumItinerary(m, hours);
-      renderItinerary(it,m);
-    });
-
-    $('concierge-suggest').addEventListener('click', ()=>{
-      const museumName = $('museum-select').value;
-      const hours = parseInt($('museum-hours').value,10) || 2;
-      const city = $('city-select').value;
-      if(!museumName) return alert('Seleziona un museo per il concierge.');
-      const m = DB.museums.find(x => x.name === museumName) || {name:museumName, overview:'', highlights:[], must:[], alternative:[], full:[]};
-      const it = buildMuseumItinerary(m, hours);
-      const plan = conciergePlan(city, m, it);
-      renderConcierge(plan);
-    });
-
-    /* ---------- Itinerary generator ---------- */
-    function buildMuseumItinerary(museum, hours){
-      const start = new Date(); start.setHours(10,30,0,0);
-      const steps = [];
-      const per = Math.max(1, Math.min(3, hours));
-      const highlights = museum.highlights || [];
-      for(let i=0;i<per && i<highlights.length;i++){
-        const h = highlights[i];
-        steps.push({time: timeAdd(start, i*40), title:`Focus: ${h.title}`, note:`Autore: ${h.author}. ${h.desc}`});
-      }
-      steps.push({time: timeAdd(start, per*40), title:'Panoramica collezione', note: museum.overview || ''});
-      steps.push({time: timeAdd(start, (per+1)*25), title:'Percorso alternativo', note: (museum.alternative || []).join(' • ') || 'Passeggiata consigliata nei dintorni'});
-      return {museum: museum.name || '', hours: per, steps, must: museum.must || [], alt: museum.alternative || [], full: museum.full || []};
-    }
-    function timeAdd(base, minutes){ return new Date(base.getTime() + minutes*60000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
-
-    function renderItinerary(it, museumObj){
-      const box = $('planner-result'); box.innerHTML = '';
-      const head = document.createElement('div'); head.innerHTML = `<div style="font-weight:800">${museumObj.name} — Itinerario ${it.hours}h</div><div class="small-muted" style="margin-top:6px">${museumObj.overview||''}</div>`;
-      box.appendChild(head);
-
-      // tabs buttons
-      const tabs = document.createElement('div'); tabs.style.display='flex'; tabs.style.gap='8px'; tabs.style.marginTop='10px';
-      ['Must-to-see','Alternativo','Completo'].forEach(t=>{
-        const btn = document.createElement('button'); btn.className='btn btn-ghost'; btn.style.flex='1'; btn.innerText=t;
-        btn.addEventListener('click', ()=> {
-          const routeArea = document.getElementById('route-area');
-          if(routeArea){ routeArea.remove(); }
-          const r = document.createElement('div'); r.id='route-area'; r.className='route-box'; r.style.marginTop='10px';
-          if(t==='Must-to-see'){
-            (it.must||[]).forEach(item => { const p=document.createElement('div'); p.style.marginTop='8px'; p.innerHTML=`<div style="font-weight:600">• ${item}</div>`; r.appendChild(p); });
-          } else if (t==='Alternativo'){
-            (it.alt||[]).forEach(item => { const p=document.createElement('div'); p.style.marginTop='8px'; p.innerHTML=`<div style="font-weight:600">• ${item}</div>`; r.appendChild(p); });
-          } else {
-            (it.full||[]).forEach(item => { const p=document.createElement('div'); p.style.marginTop='8px'; p.innerHTML=`<div style="font-weight:600">• ${item}</div>`; r.appendChild(p); });
-          }
-          box.appendChild(r);
-        });
-        tabs.appendChild(btn);
-      });
-      box.appendChild(tabs);
-
-      // default show Must
-      const r0 = document.createElement('div'); r0.id='route-area'; r0.className='route-box'; r0.style.marginTop='10px';
-      (it.must || []).forEach(item => { const p=document.createElement('div'); p.style.marginTop='8px'; p.innerHTML=`<div style="font-weight:600">• ${item}</div>`; r0.appendChild(p); });
-      box.appendChild(r0);
-
-      // steps summary & actions
-      const stepsDiv = document.createElement('div'); stepsDiv.style.marginTop='12px';
-      it.steps.forEach(s => {
-        const el = document.createElement('div'); el.className='route-box'; el.style.marginTop='8px';
-        el.innerHTML = `<div style="font-weight:700">${s.time} — ${s.title}</div><div class="small-muted" style="margin-top:6px">${s.note || ''}</div>`;
-        stepsDiv.appendChild(el);
-      });
-      box.appendChild(stepsDiv);
-
-      const actions = document.createElement('div'); actions.style.display='flex'; actions.style.gap='8px'; actions.style.marginTop='10px';
-      const addBtn = document.createElement('button'); addBtn.className='btn btn-primary'; addBtn.style.flex='1'; addBtn.innerText='Aggiungi alla timeline';
-      addBtn.addEventListener('click', ()=>{ addToTimeline(`${museumObj.name} — Itinerario ${it.hours}h`, it.steps); alert('Itinerario aggiunto alla timeline'); });
-      const editBtn = document.createElement('button'); editBtn.className='btn btn-ghost'; editBtn.style.flex='1'; editBtn.innerText='Personalizza';
-      editBtn.addEventListener('click', ()=> alert('Editor orari non attivo nella demo mobile'));
-      actions.appendChild(addBtn); actions.appendChild(editBtn);
-      box.appendChild(actions);
-    }
-
-    /* ---------- Concierge ---------- */
-    function conciergePlan(city, museumObj, itinerary){
-      const start = new Date(); start.setHours(10,30,0,0);
-      const steps = itinerary.steps.slice();
-      const foodCandidates = DB.services[city].food || [];
-      const lunch = foodCandidates.find(f => f.zone && museumObj.zone && f.zone === museumObj.zone) || foodCandidates[0] || {name:'Ristorante locale', zone:''};
-      steps.push({time: timeAdd(new Date(start.getTime()), itinerary.hours*60), title:`Pranzo consigliato: ${lunch.name}`, note:`Zona: ${lunch.zone} • Prenotazione consigliata`});
-      const coffee = (DB.services[city].coffee || [])[0] || {name:'Caffè vicino'};
-      steps.push({time: timeAdd(new Date(start.getTime()), itinerary.hours*60 + 90), title:`Caffè: ${coffee.name}`, note:'Sosta per scappare dal freddo'});
-      const spa = (DB.services[city].spa || [])[0] || {name:'Centro benessere'};
-      steps.push({time: timeAdd(new Date(start.getTime()), itinerary.hours*60 + 160), title:`Relax: ${spa.name}`, note:'Massaggio o trattamento (verifica disponibilità)'});
-      const mani = (DB.services[city].manicure || [])[0] || {name:'Manicure locale'};
-      steps.push({time: timeAdd(new Date(start.getTime()), itinerary.hours*60 + 260), title:`Manicure: ${mani.name}`, note:'Appuntamento o walk-in possibile'});
-      return {city, museum: museumObj.name, steps, recommendations:{lunch, coffee, spa, manicure:mani}};
-    }
-
-    function renderConcierge(plan){
-      const box = $('planner-result'); box.innerHTML = '';
-      const head = document.createElement('div'); head.innerHTML = `<div style="font-weight:800">Programma Concierge — ${plan.museum} (${plan.city})</div><div class="small-muted" style="margin-top:6px">Generato automaticamente</div>`; box.appendChild(head);
-      plan.steps.forEach(s => {
-        const el = document.createElement('div'); el.className='route-box'; el.style.marginTop='10px';
-        el.innerHTML = `<div style="font-weight:700">${s.time} — ${s.title}</div><div class="small-muted" style="margin-top:6px">${s.note}</div>`;
-        box.appendChild(el);
-      });
-      const actions = document.createElement('div'); actions.style.display='flex'; actions.style.gap='8px'; actions.style.marginTop='10px';
-      const add = document.createElement('button'); add.className='btn btn-primary'; add.style.flex='1'; add.innerText='Aggiungi piano';
-      add.addEventListener('click', ()=>{ addToTimeline(`Concierge — ${plan.museum}`, plan.steps); alert('Piano aggiunto alla timeline'); });
-      const check = document.createElement('button'); check.className='btn btn-ghost'; check.style.flex='1'; check.innerText='Verifica locali';
-      check.addEventListener('click', ()=> { checkReservation(plan.city, plan.recommendations.lunch.name, plan.recommendations.lunch.zone, plan.recommendations.lunch.link); setTimeout(()=>checkReservation(plan.city, plan.recommendations.spa.name, plan.recommendations.spa.zone, ''), 400); });
-      actions.appendChild(add); actions.appendChild(check);
-      box.appendChild(actions);
-    }
-
-    /* ---------- Timeline ---------- */
-    function addToTimeline(title, steps){
-      const container = $('timeline-content');
-      if(container.innerText.trim() === 'Timeline non generata.') container.innerHTML = '';
-      const wrapper = document.createElement('div'); wrapper.className='tl-item';
-      const head = document.createElement('div'); head.style.fontWeight='800'; head.innerText = title; wrapper.appendChild(head);
-      steps.forEach(s => {
-        const it = document.createElement('div'); it.style.marginTop='8px'; it.innerHTML = `<div style="font-weight:600">${s.time} — ${s.title}</div><div class="small-muted" style="margin-top:4px">${s.note||''}</div>`; wrapper.appendChild(it);
-      });
-      container.prepend(wrapper);
-    }
-
-    /* ---------- Reservation simulation + walk-in ---------- */
-    function checkReservation(city, name, zone, link){
-      const box = $('service-box');
-      const node = document.createElement('div'); node.className='svc'; node.innerHTML = `<div class="title">${name}</div><div class="small-muted" style="margin-top:6px">Controllo disponibilità in corso…</div>`;
-      box.prepend(node);
-      setTimeout(()=>{
-        const ok = Math.random() > 0.35; // 65% chance available
-        node.innerHTML = `<div class="title">${name}</div>`;
-        if(ok){
-          node.innerHTML += `<div class="small-muted">✅ Posti disponibili.</div>`;
-          if(link) node.innerHTML += `<div style="margin-top:8px"><a href="${link}" target="_blank" class="btn btn-primary" style="width:100%">Apri prenotazione</a></div>`;
-          else node.innerHTML += `<div style="margin-top:8px"><button class="btn btn-primary" style="width:100%" onclick="fakeBook('${escapeHtml(name)}')">Prenota (simulato)</button></div>`;
-        } else {
-          node.innerHTML += `<div class="small-muted">❌ Non disponibile per la fascia scelta.</div>`;
-          const alt = suggestAlternative(city, zone, name);
-          node.innerHTML += `<div class="small-muted" style="margin-top:8px">Alternativa walk-in: <strong>${alt.name}</strong> — ${alt.zone||''}</div>`;
-          node.innerHTML += `<div style="margin-top:8px"><button class="btn btn-ghost" style="width:100%" onclick="openMap('${escapeHtml(alt.name)}','${escapeHtml(alt.zone||'')}')">Vai (map demo)</button></div>`;
+        // INITIALIZATION
+        function enterApp() {
+            document.getElementById('intro-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('intro-overlay').style.display = 'none';
+                document.getElementById('main-app').classList.remove('hidden');
+                document.getElementById('main-app').style.opacity = '1';
+                updateUI();
+            }, 800);
         }
-      }, 700 + Math.random()*800);
-    }
-    function fakeBook(name){ alert('Prenotazione simulata per: ' + name + '\n(Operazione demo — non effettua prenotazioni reali).'); }
-    function suggestAlternative(city, zone, originalName){
-      const pool = [].concat(DB.services[city].food || [], DB.services[city].coffee || [], DB.services[city].spa || [], DB.services[city].manicure || []);
-      let candidates = pool.filter(p => p.name !== originalName && (p.zone === zone || !zone));
-      if(!candidates.length) candidates = pool.filter(p => p.name !== originalName);
-      return candidates[Math.floor(Math.random()*candidates.length)] || {name:'Locale vicino', zone:'vicino'};
-    }
-    function openMap(name, zone){ alert(`Mappa demo: ${name} (${zone}) — integrazione reale con GoogleMaps/Leaflet disponibile.`); }
 
-    /* ---------- Helpers ---------- */
-    function escapeHtml(s){ return String(s||'').replace(/"/g,'&quot;').replace(/'/g,"\\'"); }
-  </script>
+        window.onload = function() {
+            const date = new Date();
+            const month = date.getMonth(); 
+            const day = date.getDate();
+            const bg = document.getElementById('bg-container');
+            const title = document.getElementById('intro-title');
+            const sub = document.getElementById('intro-sub');
+
+            if(month === 1) { 
+                if(day < 4) { bg.className = 'bg-fusion'; title.innerText = "Ciao Giada"; } 
+                else if (day >= 4 && day < 7) { bg.className = 'bg-boston'; title.innerText = "Benvenuta a Boston"; state.city = 'boston'; } 
+                else if (day >= 7) { bg.className = 'bg-nyc'; title.innerText = "Benvenuta a NYC"; state.city = 'nyc'; }
+            } else { bg.className = 'bg-fusion'; }
+
+            if(CONFIG.forceBday || (month === 1 && day === 6)) {
+                document.getElementById('intro-overlay').style.display='none';
+                triggerBday();
+            }
+        };
+
+        // FUNCTIONS
+        function setCity(c) { state.city = c; updateUI(); }
+        function setCat(c) { state.cat = c; updateUI(); }
+        function setMode(m) { state.mode = m; updateUI(); }
+        
+        function triggerBday() { document.getElementById('bday-overlay').style.display = 'flex'; }
+        function closeBday() {
+            document.getElementById('bday-overlay').style.display = 'none';
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('main-app').style.opacity = '1';
+            updateUI();
+        }
+
+        function showRoute(id, time) {
+            const listDiv = document.getElementById(`list-${id}`);
+            const data = museumRoutes[id];
+            
+            document.querySelectorAll(`#card-${id} .time-btn`).forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if(!data || !data[time]) return;
+
+            let html = '';
+            let items = data[time];
+            if(time === '3h' && data['2h']) items = [...data['2h'], ...data['3h']];
+            if(time === '4h') { items = [...data['2h']||[], ...data['3h']||[], ...data['4h']]; }
+            
+            items.forEach((item, idx) => {
+                html += `<div class="artwork-item"><div class="artwork-number">${idx+1}</div><div class="text-white text-xs"><strong>${item.t}</strong> (${item.a})<br><span class="text-gray-400">${item.d}</span></div></div>`;
+            });
+            listDiv.innerHTML = html;
+            listDiv.style.display = 'block';
+        }
+
+        function generatePlan() {
+            const mId = parseInt(document.getElementById('planner-museum').value);
+            const item = db.find(i=>i.id===mId);
+            const food = db.find(i=>i.cat==='food' && i.city===state.city && i.zone===item.zone) || db.find(i=>i.cat==='food' && i.city===state.city);
+            
+            document.getElementById('planner-res').innerHTML = `
+                <div class="mt-4 border-l-2 border-[#BFEBFF] pl-4 animate-pulse">
+                    <p class="text-xs text-[#BFEBFF]">ITINERARIO SUGGERITO</p>
+                    <p class="text-white font-bold text-lg mb-1">${item.name}</p>
+                    <p class="text-xs text-gray-400 mb-3">Visita la collezione principale.</p>
+                    <p class="text-xs text-[#BFEBFF]">LUNCH VICINO (${item.zone || 'Zona'})</p>
+                    <div class="bg-white/10 p-3 rounded-xl flex items-center gap-3 mt-1">
+                        <i class="fa-solid ${food.icon} text-[#BFEBFF]"></i>
+                        <div><p class="font-bold text-white text-sm">${food.name}</p><p class="text-xs text-gray-400">${food.dish}</p></div>
+                    </div>
+                </div>`;
+        }
+
+        function updateUI() {
+            document.getElementById('btn-nyc').className = state.city === 'nyc' ? 'city-btn active' : 'city-btn';
+            document.getElementById('btn-boston').className = state.city === 'boston' ? 'city-btn active' : 'city-btn';
+            
+            document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('selected'));
+            document.getElementById('cat-'+state.cat).classList.add('selected');
+
+            const showMode = ['explore','food','hotel','shopping'].includes(state.cat) && !(state.city==='boston' && state.cat==='hotel');
+            document.getElementById('mode-control').style.display = showMode ? 'flex' : 'none';
+            if(showMode) {
+                if(state.cat === 'shopping') {
+                    document.getElementById('opt-classic').innerText = "Souvenir Chic";
+                    document.getElementById('opt-niche').innerText = "Stravagante";
+                } else if(state.cat === 'hotel') {
+                    document.getElementById('opt-classic').innerText = "Grand Luxe";
+                    document.getElementById('opt-niche').innerText = "Boutique";
+                } else {
+                    document.getElementById('opt-classic').innerText = "Refined Classics";
+                    document.getElementById('opt-niche').innerText = "New & Niche";
+                }
+                
+                document.getElementById('opt-classic').className = state.mode === 'classic' ? 'mode-option active' : 'mode-option';
+                document.getElementById('opt-niche').className = state.mode === 'niche' ? 'mode-option active' : 'mode-option';
+                document.getElementById('mode-blob').style.left = state.mode === 'classic' ? '4px' : 'calc(50% + 2px)';
+            }
+
+            const feed = document.getElementById('feed');
+            feed.innerHTML = '';
+
+            if(state.cat === 'planner') {
+                const museums = db.filter(i => i.cat === 'explore' && i.city === state.city);
+                feed.innerHTML = `
+                    <div class="planner-box">
+                        <h2 class="text-2xl font-serif text-white mb-2">Concierge</h2>
+                        <p class="text-sm text-gray-400 mb-4">Pianifica la mattinata a ${state.city.toUpperCase()}.</p>
+                        <select id="planner-museum" class="planner-select">
+                            ${museums.map(m => `<option value="${m.id}">${m.name} (${m.zone || ''})</option>`).join('')}
+                        </select>
+                        <button onclick="generatePlan()" class="w-full py-3 bg-[#BFEBFF] text-[#004D54] font-bold rounded-xl text-xs uppercase shadow-lg">Crea Piano</button>
+                        <div id="planner-res"></div>
+                    </div>`;
+                return;
+            }
+
+            let data = db.filter(i => i.city === state.city && i.cat === state.cat);
+            if(showMode) data = data.filter(i => i.mode === state.mode);
+
+            if(data.length === 0) {
+                feed.innerHTML = `<div class="text-center text-gray-500 mt-10">Nessun elemento trovato.</div>`;
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel';
+                card.id = `card-${item.id}`;
+                if(item.isAlert) card.style.border = '1px solid #DB4F61';
+
+                let extras = '';
+                if(item.dish) extras = `<div class="mt-2 pl-2 border-l-2 border-[#BFEBFF]/30 text-xs text-gray-300">Must: ${item.dish} • ${item.cost}</div>`;
+                
+                if(item.hasRoutes) {
+                    extras = `
+                        <div class="time-btn-container">
+                            <button class="time-btn" onclick="showRoute(${item.id}, '2h')">2 ORE</button>
+                            <button class="time-btn" onclick="showRoute(${item.id}, '3h')">3 ORE</button>
+                            <button class="time-btn" onclick="showRoute(${item.id}, '4h')">4 ORE</button>
+                        </div>
+                        <div id="list-${item.id}" class="artwork-list"></div>
+                    `;
+                }
+                
+                let btns = '';
+                if(item.action === 'Chiama' || item.phone) btns += `<a href="tel:${item.phone}" class="btn-primary action-btn">Chiama</a>`;
+                if(item.action === 'Mappa' || item.address) btns += `<button onclick="openTaxiCard('${item.name.replace("'","")}', '${item.address}')" class="btn-secondary action-btn ml-2">Mappa</button>`;
+                if(item.link) btns += `<a href="${item.link}" target="_blank" class="btn-primary action-btn ml-2">Vedi</a>`;
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex gap-3">
+                            <div class="glass-icon"><i class="fa-solid ${item.icon}"></i></div>
+                            <div>
+                                <h3 class="card-title">${item.name}</h3>
+                                ${item.zone ? `<p class="card-sub">${item.zone}</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-desc">${item.desc}</p>
+                    ${extras}
+                    ${!item.hasRoutes ? `<div class="mt-4 flex">${btns}</div>` : ''}
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        function openTaxiCard(name, address) {
+            document.getElementById('taxi-name').innerText = name;
+            document.getElementById('taxi-address').innerText = address;
+            document.getElementById('taxi-overlay').classList.add('active');
+        }
+        function closeTaxi() { document.getElementById('taxi-overlay').classList.remove('active'); }
+        
+        function toggleMeteo() {
+            const txt = document.getElementById('meteo-txt');
+            if(txt.innerText === 'Neve') txt.innerText = 'Sole';
+            else txt.innerText = 'Neve';
+        }
+    </script>
 </body>
 </html>
