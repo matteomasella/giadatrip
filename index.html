@@ -4,427 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#004D54">
     <title>2EMME | Prestige Guide</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* --- SYSTEM VARIABLES --- */
-        :root {
-            --c-ottanio: #004D54;
-            --c-sugar: #BFEBFF;
-            --c-white: #FFFFFF;
-            --c-magenta: #DB4F61;
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(191, 235, 255, 0.15);
-        }
-
-        body { 
-            background-color: var(--c-ottanio); color: var(--c-white); 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            overscroll-behavior-y: none;
-            padding-bottom: env(safe-area-inset-bottom);
-            margin: 0; overflow: hidden;
-        }
-
-        /* --- INTRO LAYERS --- */
-        #intro-overlay, #bday-overlay {
-            position: fixed; inset: 0; z-index: 9999; 
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            overflow: hidden; transition: opacity 1s ease-in-out;
-            background-color: #004D54; /* Fallback color */
-        }
-
-        .bg-layer {
-            position: absolute; inset: 0; z-index: 0;
-            background-size: cover; background-position: center;
-            transition: all 1.5s ease;
-            opacity: 0.4; /* Slightly darker for readability */
-        }
-
-        /* IMMAGINI ONLINE (FUNZIONANO SUBITO) */
-        .bg-fusion { background-image: url('https://images.unsplash.com/photo-1569683795645-b62e50fbf103?q=80&w=1974&auto=format&fit=crop'); } /* Travel Mood */
-        .bg-boston { background-image: url('https://images.unsplash.com/photo-1505886603762-b94f971887e2?q=80&w=1974&auto=format&fit=crop'); } /* Boston */
-        .bg-nyc { background-image: url('https://images.unsplash.com/photo-1496442226666-8d4a0e29e128?q=80&w=1974&auto=format&fit=crop'); } /* NYC */
-        .bg-bday { background-image: url('https://images.unsplash.com/photo-1550926065-2741979b002c?q=80&w=1974&auto=format&fit=crop'); filter: blur(6px) brightness(0.6); transform: scale(1.1); }
-
-        .intro-content { z-index: 10; text-align: center; position: relative; width: 100%; padding: 0 20px; }
-        .hero-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; line-height: 1; margin-bottom: 10px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); opacity: 0; transform: translateY(20px); transition: 1s ease 0.5s; color: #fff; }
-        .hero-sub { font-size: 0.9rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-sugar); opacity: 0; transform: translateY(20px); transition: 1s ease 0.8s; text-shadow: 0 2px 10px rgba(0,0,0,0.8); font-weight: 700; background: rgba(0,0,0,0.3); display: inline-block; padding: 5px 10px; border-radius: 4px; }
-        .active .hero-title, .active .hero-sub { opacity: 1; transform: translateY(0); }
-
-        .gold-text { font-family: 'Playfair Display', serif; background: linear-gradient(90deg, #BF953F, #FCF6BA, #B38728, #FBF5B7); background-size: 200% auto; -webkit-background-clip: text; color: transparent; animation: shine 3s linear infinite; position: relative; z-index: 10; }
-        
-        .bottle-container { position: relative; width: 100px; height: 300px; z-index: 10; }
-        .bottle-body { font-size: 150px; color: #2e4c26; transform: rotate(-15deg); filter: drop-shadow(0 0 20px #000); }
-        .cork { position: absolute; top: 25px; left: 55px; width: 25px; height: 30px; background: #8B4513; border-radius: 4px; transform: rotate(-15deg); z-index: 11; transition: all 0.5s ease; border: 1px solid rgba(255,255,255,0.2); }
-        .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite; }
-        .pop .cork { top: -250px; left: 250px; transform: rotate(500deg); opacity: 0; }
-        .bubble { position: absolute; background: #fff; border-radius: 50%; opacity: 0; animation: rise 2s infinite; }
-
-        /* --- APP UI --- */
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-        .glass-icon { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.01)); border: 1px solid var(--glass-border); color: var(--c-sugar); font-size: 16px; }
-        
-        .city-switch-container { background: rgba(0,0,0,0.2); border-radius: 99px; padding: 4px; display: flex; position: relative; }
-        .city-btn { flex: 1; padding: 10px; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); transition: 0.3s; z-index: 2; }
+        :root { --c-ottanio: #004D54; --c-sugar: #FCF6BA; --glass-bg: rgba(255, 255, 255, 0.08); --glass-border: rgba(252, 246, 186, 0.2); --c-magenta: #DB4F61; }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #000; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .bg-layer { position: fixed; inset: 0; z-index: 0; background-size: cover; background-position: center top; transition: opacity 1s ease-in-out; opacity: 0; }
+        .show-bg { opacity: 1 !important; }
+        .bg-fusion { background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('nyboston.jpg'); }
+        .bg-nyc { background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('ny.jpg'); }
+        .bg-boston { background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('boston.jpg'); }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; }
+        .city-bg { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc(50% - 4px); background: var(--c-sugar); border-radius: 99px; transition: transform 0.4s; z-index: 1; }
         .city-btn.active { color: var(--c-ottanio); }
-        .city-bg { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc(50% - 4px); background: var(--c-sugar); border-radius: 99px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1; }
-
-        /* MENU GRIGLIA */
-        .cat-chip { padding: 10px; border-radius: 14px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; transition: 0.2s; }
-        .cat-chip.selected { background: var(--c-sugar); color: var(--c-ottanio); font-weight: 800; border-color: var(--c-sugar); }
-
-        .mode-toggle { display: flex; margin: 16px 20px; background: rgba(0,0,0,0.2); border-radius: 99px; padding: 2px; border: 1px solid var(--glass-border); position: relative; }
-        .mode-option { flex: 1; text-align: center; padding: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; z-index: 2; color: rgba(255,255,255,0.6); transition: 0.3s; }
-        .mode-option.active { color: var(--c-ottanio); }
-        .mode-blob { position: absolute; top: 2px; bottom: 2px; width: 50%; background: var(--c-sugar); border-radius: 99px; transition: left 0.3s; z-index: 1; }
-
-        .card { border-radius: 24px; padding: 20px; margin-bottom: 16px; position: relative; overflow: hidden; transition: transform 0.1s; }
-        .card:active { transform: scale(0.98); }
-        .tag-badge { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 8px; border-radius: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: var(--c-sugar); }
-        
-        .detail-row { display: flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 4px; }
-        .detail-icon { color: var(--c-sugar); width: 14px; text-align: center; }
-
-        /* MUSEUM ROUTE SLIDER */
-        .route-slider { -webkit-appearance: none; width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; outline: none; margin: 15px 0; }
-        .route-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--c-sugar); cursor: pointer; border: 2px solid var(--c-ottanio); }
-        .route-box { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 12px; margin-top: 10px; border-left: 2px solid var(--c-sugar); animation: slideDown 0.3s; }
-
-        /* PLANNER SECTION */
-        .planner-container { background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid var(--glass-border); }
-        .planner-select { width: 100%; background: rgba(255,255,255,0.1); color: white; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); margin-bottom: 15px; outline: none; }
-        .planner-select option { background: #004D54; color: white; }
-        
-        #taxi-overlay { position: fixed; inset: 0; background: #000; z-index: 100; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
-        #taxi-overlay.active { display: flex; animation: fadeIn 0.2s; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-
-        @keyframes shine { to { background-position: 200% center; } }
-        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-15deg); } 20%, 80% { transform: translate3d(2px, 0, 0) rotate(-15deg); } }
-        @keyframes rise { 0% { bottom: 0; opacity: 0; } 20% { opacity: 1; } 100% { bottom: 120%; opacity: 0; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px 20px; background: rgba(0, 77, 84, 0.9); }
+        .cat-chip { padding: 10px 4px; border-radius: 12px; border: 1px solid var(--glass-border); font-size: 8px; font-weight: 800; text-transform: uppercase; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: 0.3s; }
+        .cat-chip.selected { background: var(--c-sugar); color: var(--c-ottanio); }
+        .route-card { border-left: 3px solid var(--c-sugar); background: rgba(252, 246, 186, 0.05); padding: 16px; margin-top: 12px; border-radius: 0 16px 16px 0; }
+        .gold-text { font-family: 'Playfair Display', serif; background: linear-gradient(90deg, #BF953F, #FCF6BA, #B38728); -webkit-background-clip: text; color: transparent; }
+        .bottle-container { position: relative; width: 100px; height: 250px; }
+        .bottle-body { font-size: 120px; color: #2e4c26; transform: rotate(-15deg); filter: drop-shadow(0 0 20px #000); }
+        .cork { position: absolute; top: 25px; left: 45px; width: 20px; height: 25px; background: #8B4513; border-radius: 4px; transform: rotate(-15deg); transition: all 0.5s ease; }
+        .pop .cork { top: -200px; left: 200px; opacity: 0; }
+        .shake { animation: shake 0.5s infinite; }
+        @keyframes shake { 0%, 100% { transform: translate(0,0) rotate(-15deg); } 25% { transform: translate(-2px,2px) rotate(-15deg); } 75% { transform: translate(2px,-2px) rotate(-15deg); } }
     </style>
 </head>
-<body class="h-screen flex flex-col md:max-w-md md:mx-auto relative md:border-x md:border-[#00383D]">
+<body>
 
-    <div id="bday-overlay">
-        <div class="bg-layer bg-bday"></div>
-        <div id="bottle-scene" class="bottle-container mb-4">
-            <div class="cork"></div><i class="fa-solid fa-wine-bottle bottle-body"></i><div id="bubbles-container" class="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
+    <div id="layer-fusion" class="bg-layer bg-fusion show-bg"></div>
+    <div id="layer-nyc" class="bg-layer bg-nyc"></div>
+    <div id="layer-boston" class="bg-layer bg-boston"></div>
+
+    <div id="bday-overlay" class="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black transition-opacity duration-1000" style="display:none;">
+        <div id="bottle-scene" class="bottle-container mb-8">
+            <div class="cork"></div><i class="fa-solid fa-wine-bottle bottle-body"></i>
         </div>
-        <div id="bday-msg" class="text-center z-10 opacity-0 transition-all duration-1000 transform translate-y-10">
-            <p class="text-[#FFD700] text-xs uppercase tracking-[0.4em] mb-2 drop-shadow-md">Boston Edition</p>
-            <h1 class="gold-text text-8xl font-bold mb-0 leading-none drop-shadow-2xl">50</h1>
-            <h2 class="gold-text text-3xl italic mb-8 drop-shadow-lg text-white">Happy Birthday<br>Giada</h2>
-            <button onclick="closeIntro('bday-overlay')" class="mt-4 px-10 py-4 bg-gradient-to-r from-[#BF953F] to-[#FCF6BA] text-black font-bold rounded-full shadow-[0_0_30px_rgba(191,149,63,0.5)] uppercase tracking-widest text-xs hover:scale-105 transition-transform">Enter The Guide</button>
+        <div id="bday-msg" class="text-center opacity-0 transition-all duration-1000 transform translate-y-10 p-6">
+            <h1 class="gold-text text-8xl font-bold leading-none">50</h1>
+            <h2 class="gold-text text-3xl italic mb-10">Happy Birthday Giada</h2>
+            <button onclick="exitBday()" class="px-12 py-4 bg-[#FCF6BA] text-[#004D54] font-bold rounded-full text-xs uppercase tracking-widest shadow-2xl">Entra nella Guida</button>
         </div>
-        <button id="pop-btn" onclick="popBottle()" class="absolute bottom-20 z-20 px-8 py-4 bg-white/10 backdrop-blur-md border border-[#FFD700]/50 text-[#FFD700] font-bold rounded-xl uppercase tracking-widest animate-pulse">Stappa! 🍾</button>
+        <button id="pop-btn" onclick="popBottle()" class="px-10 py-4 bg-white/10 border border-[#FCF6BA] text-[#FCF6BA] font-bold rounded-xl uppercase animate-pulse">Stappa 🍾</button>
     </div>
 
-    <div id="intro-overlay">
-        <div id="intro-bg" class="bg-layer"></div>
-        <div id="intro-content" class="intro-content">
-            <div class="glass-icon w-16 h-16 rounded-2xl mb-6 text-3xl bg-white/5 border-white/20 mx-auto backdrop-blur-md"><i class="fa-solid fa-gem"></i></div>
-            <h2 id="intro-title" class="hero-title text-white">Ciao Giada.</h2>
-            <p id="intro-sub" class="hero-sub">Pronta a esplorare?</p>
-        </div>
-        <button onclick="closeIntro('intro-overlay')" class="absolute bottom-20 z-20 mt-10 px-10 py-4 bg-[#BFEBFF] text-[#004D54] font-bold rounded-full uppercase tracking-widest text-xs shadow-xl transition-all">Inizia</button>
-    </div>
-
-    <div id="main-app" class="h-full flex flex-col opacity-0 transition-opacity duration-1000" style="display:none;">
-        
-        <div class="bg-white/5 border-b border-[#BFEBFF]/10 px-5 py-2 text-[10px] text-[#BFEBFF] flex justify-center items-center gap-2 backdrop-blur-md sticky top-0 z-50">
-            <i class="fa-solid fa-shirt"></i> <span id="outfit-text">Neve: Thermal layers + Stivali</span>
-        </div>
-
-        <header class="px-6 pt-4 pb-2 bg-[#004D54] border-b border-[#BFEBFF]/10">
+    <div id="main-app" class="relative z-10 h-screen flex flex-col">
+        <header class="px-6 pt-10 pb-4 bg-gradient-to-b from-[#004D54] to-transparent">
             <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3 active:scale-95 transition-transform" onclick="forceSecretBday()">
-                    <div class="glass-icon bg-[#00383D]"><i class="fa-solid fa-gem"></i></div>
-                    <div><h1 class="text-xl font-bold text-white leading-none">2EMME</h1><p class="text-[#BFEBFF] text-[9px] uppercase tracking-[0.2em] mt-1">Travel Master</p></div>
+                <div class="flex items-center gap-3 cursor-pointer" onclick="handleSecretClick()">
+                    <div class="w-10 h-10 rounded-xl bg-[#FCF6BA] flex items-center justify-center text-[#004D54] shadow-lg"><i class="fa-solid fa-gem text-lg"></i></div>
+                    <div><h1 class="text-lg font-black leading-none uppercase tracking-tighter">2EMME</h1><p class="text-[8px] text-[#FCF6BA] tracking-widest uppercase">Prestige Guide</p></div>
                 </div>
-                <button onclick="toggleMeteo()" id="meteo-btn" class="glass-icon w-auto px-3 h-9 rounded-full gap-2 border-white/20"><i class="fa-regular fa-snowflake"></i> <span id="meteo-txt" class="text-xs font-bold">Neve</span></button>
             </div>
-            <div class="city-switch-container">
+            <div class="relative bg-black/40 rounded-full p-1 flex border border-white/10">
                 <div id="city-bg" class="city-bg"></div>
-                <button onclick="setCity('nyc')" id="btn-nyc" class="city-btn active">New York</button>
-                <button onclick="setCity('boston')" id="btn-boston" class="city-btn">Boston</button>
+                <button onclick="changeCity('nyc')" id="btn-nyc" class="flex-1 city-btn py-2 text-[10px] font-bold z-10 active uppercase">New York</button>
+                <button onclick="changeCity('boston')" id="btn-boston" class="flex-1 city-btn py-2 text-[10px] font-bold z-10 uppercase">Boston</button>
             </div>
         </header>
         
-        <div class="bg-[#004D54] p-4 border-b border-[#BFEBFF]/5 shadow-lg relative z-40">
-            <div class="grid grid-cols-2 gap-2">
-                <button onclick="setCat('planner')" id="cat-planner" class="cat-chip selected col-span-2 justify-center bg-[#004D54] border-[#BFEBFF] text-[#BFEBFF]"><i class="fa-solid fa-bell-concierge"></i> Concierge Planner</button>
-                <button onclick="setCat('explore')" id="cat-explore" class="cat-chip"><i class="fa-solid fa-compass"></i> Esplora</button>
-                <button onclick="setCat('food')" id="cat-food" class="cat-chip"><i class="fa-solid fa-utensils"></i> Food</button>
-                <button onclick="setCat('shopping')" id="cat-shopping" class="cat-chip"><i class="fa-solid fa-bag-shopping"></i> Shopping</button>
-                <button onclick="setCat('tips')" id="cat-tips" class="cat-chip"><i class="fa-solid fa-kit-medical"></i> Tips & Survival</button>
-                <button onclick="setCat('hotel')" id="cat-hotel" class="cat-chip"><i class="fa-solid fa-bed"></i> Hotel</button>
-                <button onclick="setCat('local')" id="cat-local" class="cat-chip"><i class="fa-solid fa-user-secret"></i> Go Local</button>
+        <nav class="menu-grid" id="nav-menu">
+            </nav>
+
+        <div id="mode-selector" class="px-6 mt-4" style="display:none;">
+            <div class="relative bg-black/30 rounded-full p-1 flex border border-white/10">
+                <div id="mode-bg" class="absolute left-1 top-1 bottom-1 w-[calc(50%-4px)] bg-[#FCF6BA] rounded-full transition-all duration-300 z-1"></div>
+                <button onclick="setMode('classic')" id="m-classic" class="mode-toggle-btn active uppercase p-2 text-[9px] font-bold flex-1 text-center">Classics</button>
+                <button onclick="setMode('new')" id="m-new" class="mode-toggle-btn uppercase p-2 text-[9px] font-bold flex-1 text-center">New Scene</button>
             </div>
         </div>
 
-        <div id="mode-control" class="flex mx-6 my-4 bg-black/20 rounded-full p-1 border border-white/10 relative">
-            <div id="mode-bg" class="absolute left-1 top-1 bottom-1 w-[calc(50%-4px)] bg-[#BFEBFF] rounded-full transition-all duration-300 z-0"></div>
-            <button onclick="setMode('classic')" id="opt-classic" class="flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-[#004D54]">Refined Classics</button>
-            <button onclick="setMode('niche')" id="opt-niche" class="flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-white/60">New & Niche</button>
-        </div>
-        
-        <div id="feed" class="flex-1 overflow-y-auto px-5 pb-24 space-y-4 no-scrollbar"></div>
-    </div>
-
-    <div id="taxi-overlay" onclick="closeTaxiCard()">
-        <p class="text-[#BFEBFF] text-xs uppercase tracking-widest mb-10">Show to Driver</p>
-        <h1 id="taxi-name" class="text-3xl font-bold text-white mb-6 px-4 leading-tight">NAME</h1>
-        <div class="bg-white text-black p-6 rounded-xl w-full max-w-xs">
-            <p id="taxi-address" class="text-2xl font-mono font-bold leading-relaxed">Address Here</p>
-        </div>
-        <p class="text-xs text-gray-500 mt-20 animate-pulse">(Tocca per chiudere)</p>
+        <div id="feed" class="flex-1 overflow-y-auto px-5 py-4 space-y-4 no-scrollbar"></div>
     </div>
 
     <script>
-        const CONFIG = { forceBday: false };
+        let state = { city:'nyc', cat:'planner', mode:'classic', isBdayMode: false };
+        let clickCount = 0;
+        let lastClickTime = 0;
 
-        const db = [
-            { id:1, city:'nyc', cat:'tips', name:'Consolato Italiano NYC', desc:'690 Park Ave. In caso di furto passaporto: denuncia Polizia -> Consolato. Aperto Lun-Ven.', icon:'fa-passport', phone:'+12127379100', address:'690 Park Ave', action:'Chiama', isAlert:true },
-            { id:2, city:'nyc', cat:'tips', name:'NYU Langone Hospital', desc:'Kips Bay (34th & 1st). Pronto Soccorso (ER) eccellente, pulito e sicuro. H24.', icon:'fa-hospital', address:'550 1st Ave', action:'Mappa', isAlert:true },
-            { id:3, city:'nyc', cat:'tips', name:'Farmacia H24', desc:'Duane Reade (Walgreens) Union Sq. Farmacia gigante, sicura e sempre aperta.', icon:'fa-capsules', address:'401 Park Ave S', action:'Mappa' },
-            { id:4, city:'nyc', cat:'tips', name:'Regole Metro', desc:'• Uptown = Nord, Downtown = Sud.\n• Express salta fermate, Local fa tutte.\n• VAGONE VUOTO: Non entrarci. Se è vuoto, c\'è un motivo (puzza/pericolo).', icon:'fa-train-subway', action:'' },
-            { id:5, city:'nyc', cat:'tips', name:'Mappa Metro PDF', desc:'Scarica la mappa ufficiale MTA. Essenziale offline.', icon:'fa-map', link:'https://new.mta.info/map/5351', action:'Apri PDF' },
-            { id:50, city:'nyc', cat:'tips', name:'Rifugio Caldo', desc:'Oculus & Brookfield Place. Tunnel vetrati riscaldati che collegano metro e negozi.', icon:'fa-mug-hot', address:'185 Greenwich St', action:'Mappa' },
-            { id:6, city:'boston', cat:'tips', name:'Consolato Italiano BOS', desc:'600 Atlantic Ave. Per emergenze documenti.', icon:'fa-passport', phone:'+16177229201', address:'600 Atlantic Ave', action:'Chiama', isAlert:true },
-            { id:7, city:'boston', cat:'tips', name:'Mass General (MGH)', desc:'Ospedale #1 Mondiale. Vicino a Beacon Hill/West End.', icon:'fa-hospital', address:'55 Fruit St', action:'Mappa', isAlert:true },
-            { id:8, city:'boston', cat:'tips', name:'Mappa MBTA PDF', desc:'Mappa ufficiale della "T" (Metro). Scaricala.', icon:'fa-map', link:'https://cdn.mbta.com/sites/default/files/2024-02/2024-02-08-subway-map-v38d.pdf', action:'Apri PDF' },
-            { id:9, city:'boston', cat:'tips', name:'Regole "The T"', desc:'• Inbound = verso Downtown/Park St.\n• Outbound = verso periferia.\n• Green Line ha 4 rami (B,C,D,E), controlla la lettera!', icon:'fa-train-subway', action:'' },
-            { id:90, city:'boston', cat:'tips', name:'Rifugio Caldo', desc:'Prudential Center. Mall enorme collegato all\'hotel tramite ponti vetrati. Non esci mai al freddo.', icon:'fa-snowflake', address:'800 Boylston St', action:'Mappa' },
-            { id:100, city:'nyc', cat:'shopping', mode:'classic', name:'Fishs Eddy', address:'889 Broadway', desc:'Piatti e bicchieri con lo skyline di NY. Il souvenir più chic e utile.', icon:'fa-kitchen-set', action:'Mappa' },
-            { id:101, city:'nyc', cat:'shopping', mode:'classic', name:'Strand Bookstore', address:'828 Broadway', desc:'La libreria iconica. Tote bag e libri rari.', icon:'fa-book', action:'Mappa' },
-            { id:102, city:'nyc', cat:'shopping', mode:'classic', name:'Economy Candy', address:'108 Rivington St', desc:'Il paradiso delle caramelle vintage nel LES.', icon:'fa-candy-cane', action:'Mappa' },
-            { id:103, city:'nyc', cat:'shopping', mode:'niche', name:'Dover Street Market', address:'160 Lexington Ave', desc:'7 piani di moda d\'avanguardia e installazioni artistiche folli.', icon:'fa-shirt', action:'Mappa' },
-            { id:104, city:'nyc', cat:'shopping', mode:'niche', name:'Showfields', address:'11 Bond St', desc:'"The Most Interesting Store in the World". Shopping interattivo.', icon:'fa-store', action:'Mappa' },
-            { id:105, city:'nyc', cat:'shopping', mode:'niche', name:'Kith', address:'337 Lafayette St', desc:'Sneaker culture, cereal bar e design.', icon:'fa-shoe-prints', action:'Mappa' },
-            { id:106, city:'boston', cat:'shopping', mode:'classic', name:'Black Ink', address:'101 Charles St', desc:'Oggettistica curiosa e design intelligente a Beacon Hill.', icon:'fa-pen-nib', action:'Mappa' },
-            { id:107, city:'boston', cat:'shopping', mode:'classic', name:'Brattle Book Shop', address:'9 West St', desc:'Libri antichi e rari in un lotto all\'aperto.', icon:'fa-book-open', action:'Mappa' },
-            { id:108, city:'boston', cat:'shopping', mode:'classic', name:'Beacon Hill Chocolates', address:'91 Charles St', desc:'Cioccolatini artigianali in scatole ricordo stupende.', icon:'fa-cookie', action:'Mappa' },
-            { id:109, city:'boston', cat:'shopping', mode:'niche', name:'Bodega', address:'6 Clearway St', desc:'Negozio di sneaker di lusso nascosto dietro un finto distributore automatico.', icon:'fa-user-secret', action:'Mappa' },
-            { id:110, city:'boston', cat:'shopping', mode:'niche', name:'Alan Bilzerian', address:'34 Newbury St', desc:'Alta moda d\'avanguardia. Un\'istituzione di Boston.', icon:'fa-shirt', action:'Mappa' },
-            { id:11, city:'nyc', cat:'food', mode:'classic', name:'Carbone', zone:'Village', desc:'Italiano Iconico.', dish:'Spicy Rigatoni', cost:'$100+', rate:'4.5/5', icon:'fa-utensils', link:'https://resy.com/cities/new-york-ny/venues/carbone' },
-            { id:12, city:'nyc', cat:'food', mode:'classic', name:'Balthazar', zone:'SoHo', desc:'Brasserie Francese.', dish:'Steak Frites', cost:'$80', rate:'4.6/5', icon:'fa-bread-slice', link:'https://resy.com/cities/new-york-ny/venues/balthazar' },
-            { id:13, city:'nyc', cat:'food', mode:'classic', name:'Keens Steak', zone:'Midtown', desc:'Storica (1885).', dish:'Mutton Chop', cost:'$90', rate:'4.7/5', icon:'fa-drumstick-bite', link:'https://resy.com/cities/new-york-ny/venues/keens-steakhouse' },
-            { id:14, city:'nyc', cat:'food', mode:'classic', name:'Katz\'s Deli', zone:'LES', desc:'Deli Leggenda.', dish:'Pastrami', cost:'$35', rate:'4.5/5', icon:'fa-sandwich', link:'https://katzsdelicatessen.com/' },
-            { id:15, city:'nyc', cat:'food', mode:'classic', name:'The Polo Bar', zone:'Midtown', desc:'Ralph Lauren.', dish:'Burger', cost:'$120', rate:'4.8/5', icon:'fa-horse-head', link:'https://resy.com/cities/new-york-ny/venues/the-polo-bar' },
-            { id:16, city:'nyc', cat:'food', mode:'niche', name:'Laser Wolf', zone:'Brooklyn', desc:'Israeliano Rooftop.', dish:'Salatim', cost:'$70', rate:'4.8/5', icon:'fa-fire', link:'https://resy.com/cities/new-york-ny/venues/laser-wolf-brooklyn' },
-            { id:17, city:'nyc', cat:'food', mode:'niche', name:'Misi', zone:'Brooklyn', desc:'Pasta Bar.', dish:'Ricotta Ochy', cost:'$60', rate:'4.7/5', icon:'fa-wheat', link:'https://resy.com/cities/new-york-ny/venues/misi' },
-            { id:18, city:'nyc', cat:'food', mode:'niche', name:'Double Chicken', zone:'LES', desc:'Cocktail #1.', dish:'Sandwich', cost:'$30', rate:'4.9/5', icon:'fa-martini-glass', link:'https://resy.com/cities/new-york-ny/venues/double-chicken-please' },
-            { id:19, city:'nyc', cat:'food', mode:'niche', name:'Four Horsemen', zone:'Brooklyn', desc:'Vini Naturali.', dish:'Bread & Wine', cost:'$60', rate:'4.6/5', icon:'fa-wine-bottle', link:'https://resy.com/cities/new-york-ny/venues/the-four-horsemen' },
-            { id:20, city:'nyc', cat:'food', mode:'niche', name:'Foul Witch', zone:'Village', desc:'Gotico-Chic.', dish:'Tortellini', cost:'$80', rate:'4.5/5', icon:'fa-moon', link:'https://resy.com/cities/new-york-ny/venues/foul-witch' },
-            { id:30, city:'boston', cat:'food', mode:'classic', name:'Contessa', zone:'Back Bay', desc:'Rooftop Vetrato.', dish:'Lobster Rigatoni', cost:'$90', rate:'4.6/5', icon:'fa-city', link:'https://www.opentable.com/r/contessa-boston' },
-            { id:31, city:'boston', cat:'food', mode:'classic', name:'Union Oyster', zone:'North End', desc:'Antico (1826).', dish:'Clam Chowder', cost:'$50', rate:'4.3/5', icon:'fa-fish', link:'https://www.opentable.com/union-oyster-house' },
-            { id:32, city:'boston', cat:'food', mode:'classic', name:'Neptune Oyster', zone:'North End', desc:'North End Legend.', dish:'Hot Lobster Roll', cost:'$40', rate:'4.8/5', icon:'fa-shrimp', link:'#' },
-            { id:33, city:'boston', cat:'food', mode:'classic', name:'Tatte Bakery', zone:'Back Bay', desc:'Brunch.', dish:'Shakshuka', cost:'$25', rate:'4.7/5', icon:'fa-coffee', link:'#' },
-            { id:34, city:'boston', cat:'food', mode:'classic', name:'Capital Grille', zone:'Boylston', desc:'Steakhouse Solida.', dish:'Dry Aged Sirloin', cost:'$85', rate:'4.6/5', icon:'fa-utensils', link:'https://www.opentable.com/the-capital-grille-boston-boylston' },
-            { id:35, city:'boston', cat:'food', mode:'niche', name:'Mikiya Wagyu', zone:'Chinatown', desc:'Shabu Lusso.', dish:'Wagyu', cost:'$98', rate:'4.9/5', icon:'fa-fire-burner', link:'https://mikiyashabu.com' },
-            { id:36, city:'boston', cat:'food', mode:'niche', name:'Hecate', zone:'Back Bay', desc:'Speakeasy Segreto.', dish:'Complex Cocktails', cost:'$20/drink', rate:'4.8/5', icon:'fa-key', link:'https://hecatebar.com' },
-            { id:37, city:'boston', cat:'food', mode:'niche', name:'Krasi', zone:'Back Bay', desc:'Greco Moderno.', dish:'Orange Wine', cost:'$60', rate:'4.7/5', icon:'fa-wine-glass', link:'https://resy.com/cities/boston-ma/venues/krasi' },
-            { id:38, city:'boston', cat:'food', mode:'niche', name:'Comfort Kitchen', zone:'Dorchester', desc:'Global Comfort.', dish:'Jerk Duck', cost:'$50', rate:'4.8/5', icon:'fa-globe', link:'https://resy.com/cities/boston-ma/venues/comfort-kitchen' },
-            { id:39, city:'boston', cat:'food', mode:'niche', name:'Tonino', zone:'JP', desc:'Pasta Pizza Cozy.', dish:'Lumache Pasta', cost:'$45', rate:'4.7/5', icon:'fa-pizza-slice', link:'https://resy.com/cities/boston-ma/venues/tonino' },
-            { id:20, city:'nyc', cat:'hotel', mode:'classic', name:'The Plaza', zone:'Midtown', desc:'Icona Central Park.', price:'$$$$', icon:'fa-hotel' },
-            { id:21, city:'nyc', cat:'hotel', mode:'classic', name:'St. Regis', zone:'Midtown', desc:'Butler service.', price:'$$$$', icon:'fa-bell-concierge' },
-            { id:22, city:'nyc', cat:'hotel', mode:'classic', name:'Ritz NoMad', zone:'NoMad', desc:'Vista Empire.', price:'$$$$', icon:'fa-building' },
-            { id:23, city:'nyc', cat:'hotel', mode:'classic', name:'Four Seasons', zone:'Tribeca', desc:'Oasi Zen.', price:'$$$$', icon:'fa-spa' },
-            { id:24, city:'nyc', cat:'hotel', mode:'classic', name:'Park Hyatt', zone:'Midtown', desc:'Moderno lusso.', price:'$$$$', icon:'fa-water' },
-            { id:25, city:'nyc', cat:'hotel', mode:'niche', name:'The Ludlow', zone:'LES', desc:'Cool vibes.', price:'$$$', icon:'fa-bath' },
-            { id:26, city:'nyc', cat:'hotel', mode:'niche', name:'The Beekman', zone:'FiDi', desc:'Atrio iconico.', price:'$$$', icon:'fa-archway' },
-            { id:27, city:'nyc', cat:'hotel', mode:'niche', name:'Crosby St', zone:'SoHo', desc:'Design inglese.', price:'$$$$', icon:'fa-palette' },
-            { id:28, city:'nyc', cat:'hotel', mode:'niche', name:'Hotel Chelsea', zone:'Chelsea', desc:'Rock legend.', price:'$$$', icon:'fa-guitar' },
-            { id:29, city:'nyc', cat:'hotel', mode:'niche', name:'Greenwich', zone:'TriBeCa', desc:'De Niro style.', price:'$$$$', icon:'fa-leaf' },
-            { id:60, city:'nyc', cat:'explore', mode:'classic', name:'MoMA', address:'11 W 53rd St', zone:'Midtown', desc:'La collezione d\'arte moderna più importante.', icon:'fa-paint-brush', link:'https://www.moma.org', routes:{'1h':'5° Piano (Notte Stellata).','2h':'+ 4° Piano (Warhol).'}},
-            { id:61, city:'nyc', cat:'explore', mode:'classic', name:'Morgan Library', address:'225 Madison Ave', zone:'Midtown', desc:'Biblioteca privata di J.P. Morgan.', icon:'fa-book-open', link:'https://www.themorgan.org', routes:{'30m':'East Room.','1h':'+ Rotunda.'}},
-            { id:62, city:'nyc', cat:'explore', mode:'classic', name:'High Line', address:'Gansevoort St', zone:'Chelsea', desc:'Parco sopraelevato.', icon:'fa-leaf', link:'https://thehighline.org', routes:{'40m':'Passeggiata completa.','20m':'Entra a 23rd St.'}},
-            { id:63, city:'nyc', cat:'explore', mode:'classic', name:'Grand Central', address:'89 E 42nd St', zone:'Midtown', desc:'Soffitto stellato.', icon:'fa-train', link:'https://grandcentralterminal.com', routes:{'15m':'Main Concourse.','45m':'Whispering Gallery.'}},
-            { id:64, city:'nyc', cat:'explore', mode:'classic', name:'Neue Galerie', address:'1048 5th Ave', zone:'UES', desc:'Arte austriaca, Klimt.', icon:'fa-palette', link:'https://neuegalerie.org', routes:{'1h':'Ritratto di Adele.','2h':'+ Torta Sacher.'}},
-            { id:65, city:'nyc', cat:'explore', mode:'niche', name:'Mercer Labs', address:'21 Dey St', zone:'FiDi', desc:'Museo immersivo.', icon:'fa-cube', link:'https://mercerlabs.com', routes:{'1h':'Main Hall.','2h':'Tutto.'}},
-            { id:66, city:'nyc', cat:'explore', mode:'niche', name:'Poster House', address:'119 W 23rd St', zone:'Chelsea', desc:'Museo poster.', icon:'fa-scroll', link:'https://posterhouse.org', routes:{'45m':'Gallerie.','1h':'+ Gift Shop.'} },
-            { id:67, city:'nyc', cat:'explore', mode:'niche', name:'Dimes Square', address:'Canal St', zone:'LES', desc:'Quartiere cool.', icon:'fa-map-pin', routes:{'1h':'Caffè da Mel Bakery.'}},
-            { id:68, city:'nyc', cat:'explore', mode:'niche', name:'Domino Park', address:'Williamsburg', zone:'Brooklyn', desc:'Vista fiume.', icon:'fa-water', routes:{'30m':'Passeggiata.'}},
-            { id:69, city:'nyc', cat:'explore', mode:'niche', name:'Eavesdrop', address:'Greenpoint', zone:'Brooklyn', desc:'Listening Bar.', icon:'fa-headphones', routes:{'1h':'Drink & Vibe.'}},
-            { id:70, city:'boston', cat:'explore', mode:'classic', name:'Gardner Museum', address:'25 Evans Way', zone:'Fenway', desc:'Cortile fiorito.', icon:'fa-leaf', link:'https://www.gardnermuseum.org', routes:{'1h':'Cortile e Tiziano.','2h':'+ Sala Olandese.'}},
-            { id:71, city:'boston', cat:'explore', mode:'classic', name:'Public Library', address:'700 Boylston', zone:'Back Bay', desc:'Bates Hall.', icon:'fa-book', routes:{'20m':'Sala Lettura.','1h':'+ Cortile.'}},
-            { id:72, city:'boston', cat:'explore', mode:'classic', name:'Freedom Trail', address:'Boston Common', zone:'Downtown', desc:'Storia.', icon:'fa-shoe-prints', routes:{'2h':'Fino a Faneuil Hall.'}},
-            { id:73, city:'boston', cat:'explore', mode:'classic', name:'MFA', address:'465 Huntington', zone:'Fenway', desc:'Museo d\'Arte.', icon:'fa-landmark', routes:{'2h':'Ala Americana.','4h':'Giappone.'}},
-            { id:74, city:'boston', cat:'explore', mode:'classic', name:'Quincy Market', address:'4 S Market St', zone:'Downtown', desc:'Mercato cibo.', icon:'fa-store', routes:{'30m':'Giro cibo.'}},
-            { id:75, city:'boston', cat:'explore', mode:'niche', name:'MIT Museum', address:'314 Main St', zone:'Cambridge', desc:'Tech & AI.', icon:'fa-robot', routes:{'1h':'Robotica.'}},
-            { id:76, city:'boston', cat:'explore', mode:'niche', name:'SoWa Market', address:'450 Harrison Ave', zone:'South End', desc:'Arte/Vintage.', icon:'fa-paint-roller', routes:{'1h':'Gallerie.'}},
-            { id:77, city:'boston', cat:'explore', mode:'niche', name:'Bodega', address:'6 Clearway St', zone:'Back Bay', desc:'Shop nascosto.', icon:'fa-shoe-prints', routes:{'20m':'Trova l\'entrata.'}},
-            { id:78, city:'boston', cat:'explore', mode:'niche', name:'Beacon Hill Books', address:'71 Charles St', zone:'Beacon Hill', desc:'Libreria town.', icon:'fa-book', routes:{'45m':'3° piano.'}},
-            { id:79, city:'boston', cat:'explore', mode:'niche', name:'Mapparium', address:'200 Mass Ave', zone:'Back Bay', desc:'Globo vetro.', icon:'fa-globe-americas', routes:{'20m':'Tour guidato.'}}
-        ];
-
-        let state = { city:'nyc', cat:'planner', mode:'classic', weather:'snow' };
-
-        window.onload = function() {
-            try {
-                const today = new Date();
-                const month = today.getMonth(); 
-                const day = today.getDate();
-                const intro = document.getElementById('intro-overlay');
-                const introBg = document.getElementById('intro-bg');
-                const introTitle = document.getElementById('intro-title');
-                const introSub = document.getElementById('intro-sub');
-
-                if(CONFIG.forceBday || (month === 1 && day === 6)) { 
-                    document.getElementById('bday-overlay').style.display='flex'; 
-                    state.city='boston';
-                    return;
-                } 
-                
-                intro.style.display = 'flex';
-                setTimeout(() => document.getElementById('intro-content').classList.add('active'), 100);
-
-                if (month === 1) { 
-                    if (day < 4) {
-                        introBg.className = 'bg-layer bg-fusion';
-                        introTitle.innerText = "Ciao Giada";
-                        introSub.innerText = "Ready for takeoff?";
-                    }
-                    else if (day >= 4 && day < 7) {
-                        introBg.className = 'bg-layer bg-boston';
-                        introTitle.innerText = "Benvenuta a Boston";
-                        introSub.innerText = "Let the journey begin.";
-                        state.city = 'boston';
-                    }
-                    else if (day >= 7) {
-                        introBg.className = 'bg-layer bg-nyc';
-                        introTitle.innerText = "Benvenuta a New York";
-                        introSub.innerText = "The city awaits.";
-                        state.city = 'nyc';
-                    }
-                } else {
-                    introBg.className = 'bg-layer bg-fusion';
-                }
-                
-                updateUI();
-            } catch(e) {
-                // Fallback di sicurezza: se qualcosa va storto, mostra l'app direttamente
-                console.error(e);
-                closeIntro('intro-overlay');
+        // Easter Egg Logic
+        function handleSecretClick() {
+            const now = Date.now();
+            if (now - lastClickTime < 500) {
+                clickCount++;
+            } else {
+                clickCount = 1;
             }
-        };
+            lastClickTime = now;
 
-        function setCity(c) { state.city=c; document.getElementById('city-bg').style.transform=c==='nyc'?'translateX(0)':'translateX(100%)'; updateUI(); }
-        function setCat(c) { state.cat=c; document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('selected')); document.getElementById('cat-'+c).classList.add('selected'); updateUI(); }
-        function setMode(m) { state.mode=m; document.getElementById('mode-bg').style.left=m==='classic'?'4px':'50%'; updateUI(); }
-        function toggleMeteo() { state.weather=state.weather==='snow'?'sun':'snow'; document.getElementById('meteo-txt').innerText=state.weather==='snow'?'Neve':'Sole'; document.getElementById('outfit-text').innerText=state.weather==='snow'?'Neve: Thermal layers + Stivali':'Sole: Cappotto + Occhiali'; }
-        
-        function closeIntro(id) { document.getElementById(id).style.opacity='0'; setTimeout(()=>{document.getElementById(id).style.display='none'; document.getElementById('main-app').style.display='flex'; setTimeout(()=>document.getElementById('main-app').style.opacity='1',100); },800); }
-        function forceSecretBday() { document.getElementById('main-app').style.display='none'; document.getElementById('intro-overlay').style.display='none'; document.getElementById('bday-overlay').style.display='flex'; }
-        function popBottle() { document.getElementById('bottle-scene').classList.add('shake'); document.getElementById('pop-btn').style.display='none'; setTimeout(()=>{ document.getElementById('bottle-scene').classList.remove('shake'); document.getElementById('bottle-scene').classList.add('pop'); document.getElementById('bday-msg').classList.remove('opacity-0','translate-y-10'); },1000); }
-
-        function updateMuseumRoute(id, val) {
-            const timeLabels = {1:'30m', 2:'1h', 3:'2h', 4:'4h'};
-            const time = timeLabels[val];
-            const item = db.find(i=>i.id===id);
-            document.getElementById('route-res-'+id).innerText = time + ": " + (item.routes[time] || Object.values(item.routes)[0]);
+            if (clickCount === 3) {
+                document.getElementById('bday-overlay').style.display = 'flex';
+                clickCount = 0;
+            }
         }
 
-        function generatePlan() {
-            const museumId = parseInt(document.getElementById('planner-museum').value);
-            const timeVal = document.getElementById('planner-time').value;
-            const item = db.find(i=>i.id===museumId);
-            const food = db.find(i => i.cat==='food' && i.city===state.city && i.zone === item.zone) || db.find(i => i.cat==='food' && i.city===state.city); 
-            const resultBox = document.getElementById('planner-result');
-            resultBox.innerHTML = `<div class="border-l-2 border-[#BFEBFF] pl-4 mt-4 animation-slideDown"><p class="text-xs text-[#BFEBFF] uppercase tracking-widest mb-1">Itinerario Suggerito</p><p class="text-white font-bold text-lg mb-2"><i class="fa-solid fa-compass mr-2"></i>${item.name}</p><p class="text-sm text-gray-300 mb-4">Dedica ${timeVal}h. ${item.routes['1h'] || item.routes['2h'] || 'Visita le sale principali.'}</p><p class="text-xs text-[#BFEBFF] uppercase tracking-widest mb-1">Pranzo Vicino (${item.zone})</p><div class="bg-white/10 p-3 rounded-xl flex items-center gap-3"><div class="glass-icon"><i class="fa-solid ${food.icon}"></i></div><div><p class="font-bold text-white">${food.name}</p><p class="text-xs text-gray-300">${food.desc} • ${food.dish}</p></div><a href="${food.link}" target="_blank" class="ml-auto glass-icon w-8 h-8"><i class="fa-solid fa-arrow-right"></i></a></div></div>`;
+        const db = [
+            // ROMANTIC COUPLE
+            { id:300, city:'nyc', cat:'romantic', name:'Private Yacht Sunset', zone:'Hudson River', desc:'Mini crociera privata per due con champagne mentre il sole scompare dietro la Statua della Libertà.', icon:'fa-ship', price:'$400', rate:'5.0' },
+            { id:301, city:'nyc', cat:'romantic', name:'The River Café Table', zone:'DUMBO', desc:'Tavolo d\'angolo garantito. La vista più romantica del mondo sul ponte di Brooklyn.', icon:'fa-wine-glass', price:'$$$$', rate:'4.9' },
+            { id:302, city:'boston', cat:'romantic', name:'Gondola on Charles', zone:'Charles River', desc:'Gondola veneziana riscaldata. Un momento magico nel cuore di Boston.', icon:'fa-anchor', price:'$200', rate:'4.8' },
+            // SPA & BEAUTY
+            { id:100, city:'nyc', cat:'spa', mode:'classic', name:'Aire Ancient Baths', zone:'TriBeCa', desc:'Bagni termali al lume di candela in un edificio del 1883. Massaggio di coppia incluso.', icon:'fa-hot-tub-person', price:'$250+', link:'https://beaire.com' },
+            { id:102, city:'nyc', cat:'spa', mode:'classic', name:'Jin Soon Spa', zone:'West Village', desc:'Manicure d\'eccellenza consigliata da Vogue. Per mani impeccabili prima della serata.', icon:'fa-hand-sparkles', price:'$60+' },
+            // MUSEI
+            { id:1, city:'nyc', cat:'explore', name:'MoMA', zone:'Midtown', icon:'fa-palette', desc:'L\'arte moderna nel suo tempio.', percorsi: {
+                p1:{t:'1h - Masterpieces', d:'Le icone: Van Gogh (Notte Stellata) e Monet (Ninfee).'},
+                p2:{t:'2h - Oltre l\'Icona', d:'L\'energia del colore: Barnett Newman e Joan Mitchell.'},
+                p3:{t:'3h - Tailor Made Design', d:'Dall\'estetica industriale ai computer Apple.'}
+            }},
+            // FOOD CLASSIC NYC
+            { id:20, city:'nyc', cat:'food', mode:'classic', name:'Carbone', zone:'Village', desc:'Lusso anni 50 e rigatoni leggendari.', dish:'Spicy Rigatoni', rate:'4.5', price:'$$$$', link:'https://resy.com/cities/ny/carbone', icon:'fa-utensils' },
+            // TIPS
+            { id:200, city:'nyc', cat:'tips', name:'Survival Neve', zone:'Logistica', desc:'Se nevica forte, usa la Metro. Il fango di NY rovina le pelli chiare: usa impermeabilizzante.', icon:'fa-snowflake', isAlert:true }
+        ];
+
+        function popBottle() {
+            document.getElementById('bottle-scene').classList.add('shake');
+            document.getElementById('pop-btn').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('bottle-scene').classList.remove('shake');
+                document.getElementById('bottle-scene').classList.add('pop');
+                document.getElementById('bday-msg').classList.remove('opacity-0','translate-y-10');
+            }, 1000);
+        }
+
+        function exitBday() {
+            document.getElementById('bday-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('bday-overlay').style.display = 'none';
+                state.isBdayMode = true;
+                renderMenu();
+                setCat('romantic');
+                changeCity('nyc');
+            }, 800);
+        }
+
+        function renderMenu() {
+            const nav = document.getElementById('nav-menu');
+            let items = [
+                {id:'planner', icon:'fa-calendar-day', label:'Planner'},
+                {id:'explore', icon:'fa-landmark', label:'Musei'},
+                {id:'food', icon:'fa-utensils', label:'Food'}
+            ];
+            if(state.isBdayMode) items.push({id:'romantic', icon:'fa-heart', label:'Couple'});
+            items.push({id:'spa', icon:'fa-spa', label:'Beauty'}, {id:'tips', icon:'fa-circle-info', label:'Tips'});
+
+            nav.innerHTML = items.map(i => `<button onclick="setCat('${i.id}')" id="cat-${i.id}" class="cat-chip ${state.cat === i.id ? 'selected' : ''}"><i class="fa-solid ${i.icon}"></i>${i.label}</button>`).join('');
+        }
+
+        function changeCity(c) {
+            state.city = c;
+            document.getElementById('city-bg').style.transform = c === 'nyc' ? 'translateX(0)' : 'translateX(100%)';
+            document.querySelectorAll('.bg-layer').forEach(l => l.classList.remove('show-bg'));
+            document.getElementById('layer-' + c).classList.add('show-bg');
+            updateUI();
+        }
+
+        function setCat(c) {
+            state.cat = c;
+            renderMenu();
+            document.getElementById('mode-selector').style.display = (c === 'food' || c === 'spa') ? 'block' : 'none';
+            updateUI();
+        }
+
+        function setMode(m) {
+            state.mode = m;
+            document.getElementById('mode-bg').style.left = (m === 'classic') ? '4px' : 'calc(50% + 4px)';
+            updateUI();
         }
 
         function updateUI() {
             const feed = document.getElementById('feed');
             feed.innerHTML = '';
-
-            const modeCtrl = document.getElementById('mode-control');
-            modeCtrl.style.display = ['explore','food','hotel','shopping'].includes(state.cat) && !(state.city==='boston'&&state.cat==='hotel') ? 'flex' : 'none';
             
-            if(state.cat === 'shopping') {
-                document.getElementById('opt-classic').innerText = "Souvenir Chic";
-                document.getElementById('opt-niche').innerText = "Stravagante";
-            } else if(state.cat === 'hotel') {
-                document.getElementById('opt-classic').innerText = "Grand Luxe";
-                document.getElementById('opt-niche').innerText = "Boutique";
-            } else {
-                document.getElementById('opt-classic').innerText = "Refined Classics";
-                document.getElementById('opt-niche').innerText = "New & Niche";
-            }
-
-            // Fix toggle visual state
-            document.getElementById('opt-classic').className = state.mode === 'classic' ? 'flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-[#004D54]' : 'flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-white/60';
-            document.getElementById('opt-niche').className = state.mode === 'niche' ? 'flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-[#004D54]' : 'flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-white/60';
-
-            if(state.cat === 'planner') {
+            if (state.cat === 'planner') {
                 const museums = db.filter(i => i.cat === 'explore' && i.city === state.city);
-                feed.innerHTML = `<div class="planner-container"><h2 class="text-2xl font-serif text-white mb-1">Ciao Giada,</h2><p class="text-sm text-gray-400 mb-6">Organizziamo la tua mattinata a ${state.city === 'nyc' ? 'New York' : 'Boston'}.</p><label class="text-xs uppercase text-[#BFEBFF] font-bold mb-2 block">Cosa visiti oggi?</label><select id="planner-museum" class="planner-select">${museums.map(m => `<option value="${m.id}">${m.name} (${m.zone})</option>`).join('')}</select><label class="text-xs uppercase text-[#BFEBFF] font-bold mb-2 block">Quanto tempo hai?</label><input type="range" id="planner-time" min="1" max="4" value="2" class="w-full mb-6 accent-[#BFEBFF]"><button onclick="generatePlan()" class="w-full py-4 bg-[#BFEBFF] text-[#004D54] font-bold rounded-xl shadow-lg uppercase tracking-widest text-xs">Crea Piano</button><div id="planner-result"></div></div>`;
+                feed.innerHTML = `<div class="glass-panel"><h2 class="font-serif text-2xl mb-4 text-[#FCF6BA] italic text-center">Art Concierge</h2><select id="p-sel" class="w-full bg-black/40 p-4 rounded-xl mb-4 text-sm border border-white/10 outline-none text-white">${museums.map(m => `<option value="${m.id}">${m.name}</option>`).join('')}</select><select id="t-sel" class="w-full bg-black/40 p-4 rounded-xl mb-6 text-sm border border-white/10 outline-none text-white"><option value="p1">1 Ora (Masterpieces)</option><option value="p2">2 Ore (Deep Dive)</option><option value="p3">3 Ore (Tailor Made)</option></select><button onclick="calcPlan()" class="w-full py-5 bg-[#FCF6BA] text-[#004D54] font-black rounded-xl text-[10px] uppercase tracking-widest">Genera Narrativa</button><div id="res-box" class="mt-6"></div></div>`;
                 return;
             }
 
-            let data = db.filter(i => i.city === state.city && i.cat === state.cat);
-            if(['explore','food','hotel','shopping'].includes(state.cat)) data = data.filter(i => i.mode === state.mode);
-
-            if(state.city==='boston' && state.cat==='hotel') {
-                feed.innerHTML = `<div class="text-center pt-20 opacity-70"><div class="glass-icon w-16 h-16 text-3xl mx-auto mb-4"><i class="fa-solid fa-check"></i></div><h3 class="font-bold text-white">Già Prenotato!</h3></div>`;
-                return;
-            }
-
-            data.forEach(item => {
-                const card = document.createElement('div'); card.className = 'glass-panel card';
-                if(item.isAlert) card.style.border = '1px solid var(--c-magenta)';
-                
-                let extraContent = '';
-                if(item.routes) {
-                    extraContent = `<div class="mt-4 border-t border-white/10 pt-3"><p class="text-[10px] text-[#BFEBFF] uppercase mb-2">Tempo a disposizione?</p><input type="range" class="route-slider" min="1" max="4" value="2" oninput="updateMuseumRoute(${item.id}, this.value)"><div id="route-res-${item.id}" class="route-box text-xs text-gray-200">1h: ${item.routes['1h'] || Object.values(item.routes)[0]}</div></div>`;
-                }
-                if(item.dish) {
-                    extraContent = `<div class="mt-2 pl-2 border-l-2 border-[#BFEBFF]/30"><p class="text-xs text-gray-300"><i class="fa-solid fa-utensils text-[#BFEBFF] mr-2"></i>Must: ${item.dish}</p><p class="text-xs text-gray-400 mt-1"><i class="fa-solid fa-wallet text-[#BFEBFF] mr-2"></i>${item.cost} • Rating: ${item.rate}</p></div><a href="${item.link}" target="_blank" class="mt-3 block text-center bg-[#BFEBFF]/10 py-2 rounded-lg text-xs font-bold text-[#BFEBFF] border border-[#BFEBFF]/20">Prenota Tavolo</a>`;
-                }
-                if(item.action) {
-                    let btnHTML = '';
-                    if(item.action === 'Chiama' || item.phone) btnHTML = `<a href="tel:${item.phone}" class="flex-1 bg-[#BFEBFF] text-[#004D54] py-3 rounded-xl text-center text-xs font-bold shadow-lg">Chiama <i class="fa-solid fa-phone ml-1"></i></a>`;
-                    if(item.action === 'Mappa' || item.address) btnHTML += `<button onclick="openTaxiCard('${item.name.replace("'","\\'")}', '${item.address}')" class="flex-1 bg-[#004D54] border border-[#BFEBFF] text-[#BFEBFF] py-3 rounded-xl text-center text-xs font-bold ml-2">Mappa <i class="fa-solid fa-map-pin ml-1"></i></button>`;
-                    if(item.link) btnHTML += `<a href="${item.link}" target="_blank" class="flex-1 bg-[#004D54] border border-[#BFEBFF] text-[#BFEBFF] py-3 rounded-xl text-center text-xs font-bold ml-2 shadow-lg">${item.action === 'Mappa' ? 'Info' : (item.action || 'Vedi')} <i class="fa-solid fa-arrow-right ml-1"></i></a>`;
-                    extraContent = `<div class="mt-4 flex gap-2">${btnHTML}</div>`;
-                }
-
-                card.innerHTML = `
-                    <div class="flex items-start mb-2 gap-3">
-                        <div class="glass-icon shrink-0"><i class="fa-solid ${item.icon}"></i></div>
-                        <div>
-                            <h3 class="font-bold text-white text-lg leading-tight">${item.name}</h3>
-                            ${item.price ? `<span class="text-[10px] text-[#BFEBFF]">${item.price}</span>` : ''}
-                            ${item.zone ? `<span class="text-[10px] text-gray-400 block">${item.zone}</span>` : ''}
-                        </div>
-                    </div>
-                    <div class="text-sm text-gray-200 font-light leading-relaxed opacity-90 whitespace-pre-line">${item.desc}</div>
-                    ${extraContent}
-                `;
+            db.filter(i => i.city === state.city && i.cat === state.cat && (['food','spa'].indexOf(state.cat) === -1 || i.mode === state.mode)).forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel flex gap-4 animate-in fade-in duration-500';
+                if(item.isAlert) card.style.borderColor = 'var(--c-magenta)';
+                card.innerHTML = `<div class="w-12 h-12 shrink-0 bg-white/5 rounded-2xl flex items-center justify-center text-[#FCF6BA] border border-white/10"><i class="fa-solid ${item.icon || 'fa-star'}"></i></div><div class="flex-1"><h4 class="font-black text-white text-md uppercase leading-tight">${item.name}</h4><p class="text-[9px] text-gray-400 uppercase tracking-widest mb-3">${item.zone} • ${item.price || ''}</p><p class="text-xs text-gray-300 font-light leading-relaxed">${item.desc}</p>${item.dish ? `<p class="text-[11px] text-[#FCF6BA] mt-3 font-bold">Must: ${item.dish}</p>` : ''}<div class="flex gap-2 mt-4">${item.link ? `<a href="${item.link}" target="_blank" class="flex-1 py-2 border border-[#FCF6BA] text-[#FCF6BA] rounded-lg text-center text-[10px] font-bold uppercase tracking-widest">Reserve</a>` : ''}</div></div>`;
                 feed.appendChild(card);
             });
-
-            const footer = document.createElement('div');
-            footer.innerHTML = `<div class="mt-8 mb-4 text-center pb-10 opacity-40"><div class="w-8 h-1 bg-white/20 rounded-full mx-auto mb-3"></div><p class="text-[9px] uppercase tracking-widest text-white">© 2026 2EMME Real Estate</p><p class="text-[8px] text-white/70">Vietata la riproduzione • Internal Use Only</p></div>`;
-            feed.appendChild(footer);
         }
 
-        function openTaxiCard(name, address) {
-            document.getElementById('taxi-name').innerText = name;
-            document.getElementById('taxi-address').innerText = address;
-            document.getElementById('taxi-overlay').classList.add('active');
+        function calcPlan() {
+            const mId = document.getElementById('p-sel').value;
+            const routeKey = document.getElementById('t-sel').value;
+            const museum = db.find(i => i.id == mId);
+            const route = museum.percorsi[routeKey];
+            document.getElementById('res-box').innerHTML = `<div class="route-card"><p class="text-[10px] text-[#FCF6BA] font-black uppercase mb-2 tracking-widest">${route.t}</p><p class="text-xs text-gray-200 italic">"${route.d}"</p></div>`;
         }
-        function closeTaxiCard() { document.getElementById('taxi-overlay').classList.remove('active'); }
+
+        // Initialize Menu
+        renderMenu();
     </script>
 </body>
 </html>
