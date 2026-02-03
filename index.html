@@ -37,19 +37,20 @@
             position: fixed; inset: 0; z-index: 9999; 
             display: none; flex-direction: column; align-items: center; justify-content: center;
             overflow: hidden; transition: opacity 1s ease-in-out;
-            background-color: #000;
+            background-color: #004D54; /* Fallback color */
         }
 
         .bg-layer {
             position: absolute; inset: 0; z-index: 0;
             background-size: cover; background-position: center;
             transition: all 1.5s ease;
+            opacity: 0.4; /* Slightly darker for readability */
         }
 
-        /* IMAGES (Assicurati che siano nella cartella) */
-        .bg-fusion { background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('nyboston.jpg'); }
-        .bg-boston { background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('boston.jpg'); }
-        .bg-nyc { background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('ny.jpg'); }
+        /* IMMAGINI ONLINE (FUNZIONANO SUBITO) */
+        .bg-fusion { background-image: url('https://images.unsplash.com/photo-1569683795645-b62e50fbf103?q=80&w=1974&auto=format&fit=crop'); } /* Travel Mood */
+        .bg-boston { background-image: url('https://images.unsplash.com/photo-1505886603762-b94f971887e2?q=80&w=1974&auto=format&fit=crop'); } /* Boston */
+        .bg-nyc { background-image: url('https://images.unsplash.com/photo-1496442226666-8d4a0e29e128?q=80&w=1974&auto=format&fit=crop'); } /* NYC */
         .bg-bday { background-image: url('https://images.unsplash.com/photo-1550926065-2741979b002c?q=80&w=1974&auto=format&fit=crop'); filter: blur(6px) brightness(0.6); transform: scale(1.1); }
 
         .intro-content { z-index: 10; text-align: center; position: relative; width: 100%; padding: 0 20px; }
@@ -192,101 +193,74 @@
     <script>
         const CONFIG = { forceBday: false };
 
-        // --- DATABASE COMPLETO & ARRICCHITO ---
         const db = [
-            // === TIPS & SURVIVAL (PRIORITY) ===
             { id:1, city:'nyc', cat:'tips', name:'Consolato Italiano NYC', desc:'690 Park Ave. In caso di furto passaporto: denuncia Polizia -> Consolato. Aperto Lun-Ven.', icon:'fa-passport', phone:'+12127379100', address:'690 Park Ave', action:'Chiama', isAlert:true },
             { id:2, city:'nyc', cat:'tips', name:'NYU Langone Hospital', desc:'Kips Bay (34th & 1st). Pronto Soccorso (ER) eccellente, pulito e sicuro. H24.', icon:'fa-hospital', address:'550 1st Ave', action:'Mappa', isAlert:true },
             { id:3, city:'nyc', cat:'tips', name:'Farmacia H24', desc:'Duane Reade (Walgreens) Union Sq. Farmacia gigante, sicura e sempre aperta.', icon:'fa-capsules', address:'401 Park Ave S', action:'Mappa' },
             { id:4, city:'nyc', cat:'tips', name:'Regole Metro', desc:'• Uptown = Nord, Downtown = Sud.\n• Express salta fermate, Local fa tutte.\n• VAGONE VUOTO: Non entrarci. Se è vuoto, c\'è un motivo (puzza/pericolo).', icon:'fa-train-subway', action:'' },
             { id:5, city:'nyc', cat:'tips', name:'Mappa Metro PDF', desc:'Scarica la mappa ufficiale MTA. Essenziale offline.', icon:'fa-map', link:'https://new.mta.info/map/5351', action:'Apri PDF' },
-            { id:5b, city:'nyc', cat:'tips', name:'Rifugio Caldo', desc:'Oculus & Brookfield Place. Tunnel vetrati riscaldati che collegano metro e negozi.', icon:'fa-mug-hot', address:'185 Greenwich St', action:'Mappa' },
-
+            { id:50, city:'nyc', cat:'tips', name:'Rifugio Caldo', desc:'Oculus & Brookfield Place. Tunnel vetrati riscaldati che collegano metro e negozi.', icon:'fa-mug-hot', address:'185 Greenwich St', action:'Mappa' },
             { id:6, city:'boston', cat:'tips', name:'Consolato Italiano BOS', desc:'600 Atlantic Ave. Per emergenze documenti.', icon:'fa-passport', phone:'+16177229201', address:'600 Atlantic Ave', action:'Chiama', isAlert:true },
             { id:7, city:'boston', cat:'tips', name:'Mass General (MGH)', desc:'Ospedale #1 Mondiale. Vicino a Beacon Hill/West End.', icon:'fa-hospital', address:'55 Fruit St', action:'Mappa', isAlert:true },
             { id:8, city:'boston', cat:'tips', name:'Mappa MBTA PDF', desc:'Mappa ufficiale della "T" (Metro). Scaricala.', icon:'fa-map', link:'https://cdn.mbta.com/sites/default/files/2024-02/2024-02-08-subway-map-v38d.pdf', action:'Apri PDF' },
             { id:9, city:'boston', cat:'tips', name:'Regole "The T"', desc:'• Inbound = verso Downtown/Park St.\n• Outbound = verso periferia.\n• Green Line ha 4 rami (B,C,D,E), controlla la lettera!', icon:'fa-train-subway', action:'' },
-            { id:9b, city:'boston', cat:'tips', name:'Rifugio Caldo', desc:'Prudential Center. Mall enorme collegato all\'hotel tramite ponti vetrati. Non esci mai al freddo.', icon:'fa-snowflake', address:'800 Boylston St', action:'Mappa' },
-
-            // === SHOPPING NYC (Classic=Souvenir Non-Tourist / Niche=Stravagante) ===
+            { id:90, city:'boston', cat:'tips', name:'Rifugio Caldo', desc:'Prudential Center. Mall enorme collegato all\'hotel tramite ponti vetrati. Non esci mai al freddo.', icon:'fa-snowflake', address:'800 Boylston St', action:'Mappa' },
             { id:100, city:'nyc', cat:'shopping', mode:'classic', name:'Fishs Eddy', address:'889 Broadway', desc:'Piatti e bicchieri con lo skyline di NY. Il souvenir più chic e utile.', icon:'fa-kitchen-set', action:'Mappa' },
             { id:101, city:'nyc', cat:'shopping', mode:'classic', name:'Strand Bookstore', address:'828 Broadway', desc:'La libreria iconica. Tote bag e libri rari.', icon:'fa-book', action:'Mappa' },
             { id:102, city:'nyc', cat:'shopping', mode:'classic', name:'Economy Candy', address:'108 Rivington St', desc:'Il paradiso delle caramelle vintage nel LES.', icon:'fa-candy-cane', action:'Mappa' },
             { id:103, city:'nyc', cat:'shopping', mode:'niche', name:'Dover Street Market', address:'160 Lexington Ave', desc:'7 piani di moda d\'avanguardia e installazioni artistiche folli.', icon:'fa-shirt', action:'Mappa' },
             { id:104, city:'nyc', cat:'shopping', mode:'niche', name:'Showfields', address:'11 Bond St', desc:'"The Most Interesting Store in the World". Shopping interattivo.', icon:'fa-store', action:'Mappa' },
             { id:105, city:'nyc', cat:'shopping', mode:'niche', name:'Kith', address:'337 Lafayette St', desc:'Sneaker culture, cereal bar e design.', icon:'fa-shoe-prints', action:'Mappa' },
-
-            // === SHOPPING BOSTON ===
             { id:106, city:'boston', cat:'shopping', mode:'classic', name:'Black Ink', address:'101 Charles St', desc:'Oggettistica curiosa e design intelligente a Beacon Hill.', icon:'fa-pen-nib', action:'Mappa' },
             { id:107, city:'boston', cat:'shopping', mode:'classic', name:'Brattle Book Shop', address:'9 West St', desc:'Libri antichi e rari in un lotto all\'aperto.', icon:'fa-book-open', action:'Mappa' },
             { id:108, city:'boston', cat:'shopping', mode:'classic', name:'Beacon Hill Chocolates', address:'91 Charles St', desc:'Cioccolatini artigianali in scatole ricordo stupende.', icon:'fa-cookie', action:'Mappa' },
             { id:109, city:'boston', cat:'shopping', mode:'niche', name:'Bodega', address:'6 Clearway St', desc:'Negozio di sneaker di lusso nascosto dietro un finto distributore automatico.', icon:'fa-user-secret', action:'Mappa' },
             { id:110, city:'boston', cat:'shopping', mode:'niche', name:'Alan Bilzerian', address:'34 Newbury St', desc:'Alta moda d\'avanguardia. Un\'istituzione di Boston.', icon:'fa-shirt', action:'Mappa' },
-
-            // --- NYC FOOD: CLASSIC (5) ---
             { id:11, city:'nyc', cat:'food', mode:'classic', name:'Carbone', zone:'Village', desc:'Italiano Iconico.', dish:'Spicy Rigatoni', cost:'$100+', rate:'4.5/5', icon:'fa-utensils', link:'https://resy.com/cities/new-york-ny/venues/carbone' },
             { id:12, city:'nyc', cat:'food', mode:'classic', name:'Balthazar', zone:'SoHo', desc:'Brasserie Francese.', dish:'Steak Frites', cost:'$80', rate:'4.6/5', icon:'fa-bread-slice', link:'https://resy.com/cities/new-york-ny/venues/balthazar' },
             { id:13, city:'nyc', cat:'food', mode:'classic', name:'Keens Steak', zone:'Midtown', desc:'Storica (1885).', dish:'Mutton Chop', cost:'$90', rate:'4.7/5', icon:'fa-drumstick-bite', link:'https://resy.com/cities/new-york-ny/venues/keens-steakhouse' },
             { id:14, city:'nyc', cat:'food', mode:'classic', name:'Katz\'s Deli', zone:'LES', desc:'Deli Leggenda.', dish:'Pastrami', cost:'$35', rate:'4.5/5', icon:'fa-sandwich', link:'https://katzsdelicatessen.com/' },
             { id:15, city:'nyc', cat:'food', mode:'classic', name:'The Polo Bar', zone:'Midtown', desc:'Ralph Lauren.', dish:'Burger', cost:'$120', rate:'4.8/5', icon:'fa-horse-head', link:'https://resy.com/cities/new-york-ny/venues/the-polo-bar' },
-
-            // --- NYC FOOD: NICHE (5) ---
             { id:16, city:'nyc', cat:'food', mode:'niche', name:'Laser Wolf', zone:'Brooklyn', desc:'Israeliano Rooftop.', dish:'Salatim', cost:'$70', rate:'4.8/5', icon:'fa-fire', link:'https://resy.com/cities/new-york-ny/venues/laser-wolf-brooklyn' },
             { id:17, city:'nyc', cat:'food', mode:'niche', name:'Misi', zone:'Brooklyn', desc:'Pasta Bar.', dish:'Ricotta Ochy', cost:'$60', rate:'4.7/5', icon:'fa-wheat', link:'https://resy.com/cities/new-york-ny/venues/misi' },
             { id:18, city:'nyc', cat:'food', mode:'niche', name:'Double Chicken', zone:'LES', desc:'Cocktail #1.', dish:'Sandwich', cost:'$30', rate:'4.9/5', icon:'fa-martini-glass', link:'https://resy.com/cities/new-york-ny/venues/double-chicken-please' },
             { id:19, city:'nyc', cat:'food', mode:'niche', name:'Four Horsemen', zone:'Brooklyn', desc:'Vini Naturali.', dish:'Bread & Wine', cost:'$60', rate:'4.6/5', icon:'fa-wine-bottle', link:'https://resy.com/cities/new-york-ny/venues/the-four-horsemen' },
             { id:20, city:'nyc', cat:'food', mode:'niche', name:'Foul Witch', zone:'Village', desc:'Gotico-Chic.', dish:'Tortellini', cost:'$80', rate:'4.5/5', icon:'fa-moon', link:'https://resy.com/cities/new-york-ny/venues/foul-witch' },
-
-            // --- BOSTON FOOD: CLASSIC (5) ---
             { id:30, city:'boston', cat:'food', mode:'classic', name:'Contessa', zone:'Back Bay', desc:'Rooftop Vetrato.', dish:'Lobster Rigatoni', cost:'$90', rate:'4.6/5', icon:'fa-city', link:'https://www.opentable.com/r/contessa-boston' },
             { id:31, city:'boston', cat:'food', mode:'classic', name:'Union Oyster', zone:'North End', desc:'Antico (1826).', dish:'Clam Chowder', cost:'$50', rate:'4.3/5', icon:'fa-fish', link:'https://www.opentable.com/union-oyster-house' },
             { id:32, city:'boston', cat:'food', mode:'classic', name:'Neptune Oyster', zone:'North End', desc:'North End Legend.', dish:'Hot Lobster Roll', cost:'$40', rate:'4.8/5', icon:'fa-shrimp', link:'#' },
             { id:33, city:'boston', cat:'food', mode:'classic', name:'Tatte Bakery', zone:'Back Bay', desc:'Brunch.', dish:'Shakshuka', cost:'$25', rate:'4.7/5', icon:'fa-coffee', link:'#' },
             { id:34, city:'boston', cat:'food', mode:'classic', name:'Capital Grille', zone:'Boylston', desc:'Steakhouse Solida.', dish:'Dry Aged Sirloin', cost:'$85', rate:'4.6/5', icon:'fa-utensils', link:'https://www.opentable.com/the-capital-grille-boston-boylston' },
-
-            // --- BOSTON FOOD: NICHE (5) ---
             { id:35, city:'boston', cat:'food', mode:'niche', name:'Mikiya Wagyu', zone:'Chinatown', desc:'Shabu Lusso.', dish:'Wagyu', cost:'$98', rate:'4.9/5', icon:'fa-fire-burner', link:'https://mikiyashabu.com' },
             { id:36, city:'boston', cat:'food', mode:'niche', name:'Hecate', zone:'Back Bay', desc:'Speakeasy Segreto.', dish:'Complex Cocktails', cost:'$20/drink', rate:'4.8/5', icon:'fa-key', link:'https://hecatebar.com' },
             { id:37, city:'boston', cat:'food', mode:'niche', name:'Krasi', zone:'Back Bay', desc:'Greco Moderno.', dish:'Orange Wine', cost:'$60', rate:'4.7/5', icon:'fa-wine-glass', link:'https://resy.com/cities/boston-ma/venues/krasi' },
             { id:38, city:'boston', cat:'food', mode:'niche', name:'Comfort Kitchen', zone:'Dorchester', desc:'Global Comfort.', dish:'Jerk Duck', cost:'$50', rate:'4.8/5', icon:'fa-globe', link:'https://resy.com/cities/boston-ma/venues/comfort-kitchen' },
             { id:39, city:'boston', cat:'food', mode:'niche', name:'Tonino', zone:'JP', desc:'Pasta Pizza Cozy.', dish:'Lumache Pasta', cost:'$45', rate:'4.7/5', icon:'fa-pizza-slice', link:'https://resy.com/cities/boston-ma/venues/tonino' },
-
-            // --- NYC HOTELS CLASSIC (5) ---
             { id:20, city:'nyc', cat:'hotel', mode:'classic', name:'The Plaza', zone:'Midtown', desc:'Icona Central Park.', price:'$$$$', icon:'fa-hotel' },
             { id:21, city:'nyc', cat:'hotel', mode:'classic', name:'St. Regis', zone:'Midtown', desc:'Butler service.', price:'$$$$', icon:'fa-bell-concierge' },
             { id:22, city:'nyc', cat:'hotel', mode:'classic', name:'Ritz NoMad', zone:'NoMad', desc:'Vista Empire.', price:'$$$$', icon:'fa-building' },
             { id:23, city:'nyc', cat:'hotel', mode:'classic', name:'Four Seasons', zone:'Tribeca', desc:'Oasi Zen.', price:'$$$$', icon:'fa-spa' },
             { id:24, city:'nyc', cat:'hotel', mode:'classic', name:'Park Hyatt', zone:'Midtown', desc:'Moderno lusso.', price:'$$$$', icon:'fa-water' },
-
-            // --- NYC HOTELS NICHE (5) ---
             { id:25, city:'nyc', cat:'hotel', mode:'niche', name:'The Ludlow', zone:'LES', desc:'Cool vibes.', price:'$$$', icon:'fa-bath' },
             { id:26, city:'nyc', cat:'hotel', mode:'niche', name:'The Beekman', zone:'FiDi', desc:'Atrio iconico.', price:'$$$', icon:'fa-archway' },
             { id:27, city:'nyc', cat:'hotel', mode:'niche', name:'Crosby St', zone:'SoHo', desc:'Design inglese.', price:'$$$$', icon:'fa-palette' },
             { id:28, city:'nyc', cat:'hotel', mode:'niche', name:'Hotel Chelsea', zone:'Chelsea', desc:'Rock legend.', price:'$$$', icon:'fa-guitar' },
             { id:29, city:'nyc', cat:'hotel', mode:'niche', name:'Greenwich', zone:'TriBeCa', desc:'De Niro style.', price:'$$$$', icon:'fa-leaf' },
-
-            // --- EXPLORE: CLASSIC (NYC) (5) ---
             { id:60, city:'nyc', cat:'explore', mode:'classic', name:'MoMA', address:'11 W 53rd St', zone:'Midtown', desc:'La collezione d\'arte moderna più importante.', icon:'fa-paint-brush', link:'https://www.moma.org', routes:{'1h':'5° Piano (Notte Stellata).','2h':'+ 4° Piano (Warhol).'}},
             { id:61, city:'nyc', cat:'explore', mode:'classic', name:'Morgan Library', address:'225 Madison Ave', zone:'Midtown', desc:'Biblioteca privata di J.P. Morgan.', icon:'fa-book-open', link:'https://www.themorgan.org', routes:{'30m':'East Room.','1h':'+ Rotunda.'}},
             { id:62, city:'nyc', cat:'explore', mode:'classic', name:'High Line', address:'Gansevoort St', zone:'Chelsea', desc:'Parco sopraelevato.', icon:'fa-leaf', link:'https://thehighline.org', routes:{'40m':'Passeggiata completa.','20m':'Entra a 23rd St.'}},
             { id:63, city:'nyc', cat:'explore', mode:'classic', name:'Grand Central', address:'89 E 42nd St', zone:'Midtown', desc:'Soffitto stellato.', icon:'fa-train', link:'https://grandcentralterminal.com', routes:{'15m':'Main Concourse.','45m':'Whispering Gallery.'}},
             { id:64, city:'nyc', cat:'explore', mode:'classic', name:'Neue Galerie', address:'1048 5th Ave', zone:'UES', desc:'Arte austriaca, Klimt.', icon:'fa-palette', link:'https://neuegalerie.org', routes:{'1h':'Ritratto di Adele.','2h':'+ Torta Sacher.'}},
-
-            // --- EXPLORE: NICHE (NYC) (5) ---
             { id:65, city:'nyc', cat:'explore', mode:'niche', name:'Mercer Labs', address:'21 Dey St', zone:'FiDi', desc:'Museo immersivo.', icon:'fa-cube', link:'https://mercerlabs.com', routes:{'1h':'Main Hall.','2h':'Tutto.'}},
             { id:66, city:'nyc', cat:'explore', mode:'niche', name:'Poster House', address:'119 W 23rd St', zone:'Chelsea', desc:'Museo poster.', icon:'fa-scroll', link:'https://posterhouse.org', routes:{'45m':'Gallerie.','1h':'+ Gift Shop.'} },
             { id:67, city:'nyc', cat:'explore', mode:'niche', name:'Dimes Square', address:'Canal St', zone:'LES', desc:'Quartiere cool.', icon:'fa-map-pin', routes:{'1h':'Caffè da Mel Bakery.'}},
             { id:68, city:'nyc', cat:'explore', mode:'niche', name:'Domino Park', address:'Williamsburg', zone:'Brooklyn', desc:'Vista fiume.', icon:'fa-water', routes:{'30m':'Passeggiata.'}},
             { id:69, city:'nyc', cat:'explore', mode:'niche', name:'Eavesdrop', address:'Greenpoint', zone:'Brooklyn', desc:'Listening Bar.', icon:'fa-headphones', routes:{'1h':'Drink & Vibe.'}},
-
-            // --- EXPLORE: CLASSIC (BOSTON) (5) ---
             { id:70, city:'boston', cat:'explore', mode:'classic', name:'Gardner Museum', address:'25 Evans Way', zone:'Fenway', desc:'Cortile fiorito.', icon:'fa-leaf', link:'https://www.gardnermuseum.org', routes:{'1h':'Cortile e Tiziano.','2h':'+ Sala Olandese.'}},
             { id:71, city:'boston', cat:'explore', mode:'classic', name:'Public Library', address:'700 Boylston', zone:'Back Bay', desc:'Bates Hall.', icon:'fa-book', routes:{'20m':'Sala Lettura.','1h':'+ Cortile.'}},
             { id:72, city:'boston', cat:'explore', mode:'classic', name:'Freedom Trail', address:'Boston Common', zone:'Downtown', desc:'Storia.', icon:'fa-shoe-prints', routes:{'2h':'Fino a Faneuil Hall.'}},
             { id:73, city:'boston', cat:'explore', mode:'classic', name:'MFA', address:'465 Huntington', zone:'Fenway', desc:'Museo d\'Arte.', icon:'fa-landmark', routes:{'2h':'Ala Americana.','4h':'Giappone.'}},
             { id:74, city:'boston', cat:'explore', mode:'classic', name:'Quincy Market', address:'4 S Market St', zone:'Downtown', desc:'Mercato cibo.', icon:'fa-store', routes:{'30m':'Giro cibo.'}},
-
-            // --- EXPLORE: NICHE (BOSTON) (5) ---
             { id:75, city:'boston', cat:'explore', mode:'niche', name:'MIT Museum', address:'314 Main St', zone:'Cambridge', desc:'Tech & AI.', icon:'fa-robot', routes:{'1h':'Robotica.'}},
             { id:76, city:'boston', cat:'explore', mode:'niche', name:'SoWa Market', address:'450 Harrison Ave', zone:'South End', desc:'Arte/Vintage.', icon:'fa-paint-roller', routes:{'1h':'Gallerie.'}},
             { id:77, city:'boston', cat:'explore', mode:'niche', name:'Bodega', address:'6 Clearway St', zone:'Back Bay', desc:'Shop nascosto.', icon:'fa-shoe-prints', routes:{'20m':'Trova l\'entrata.'}},
@@ -294,56 +268,62 @@
             { id:79, city:'boston', cat:'explore', mode:'niche', name:'Mapparium', address:'200 Mass Ave', zone:'Back Bay', desc:'Globo vetro.', icon:'fa-globe-americas', routes:{'20m':'Tour guidato.'}}
         ];
 
-        // --- APP LOGIC ---
         let state = { city:'nyc', cat:'planner', mode:'classic', weather:'snow' };
 
         window.onload = function() {
-            const today = new Date();
-            const month = today.getMonth(); // 0=Jan, 1=Feb
-            const day = today.getDate();
-            
-            const intro = document.getElementById('intro-overlay');
-            const introBg = document.getElementById('intro-bg');
-            const introTitle = document.getElementById('intro-title');
-            const introSub = document.getElementById('intro-sub');
+            try {
+                const today = new Date();
+                const month = today.getMonth(); 
+                const day = today.getDate();
+                const intro = document.getElementById('intro-overlay');
+                const introBg = document.getElementById('intro-bg');
+                const introTitle = document.getElementById('intro-title');
+                const introSub = document.getElementById('intro-sub');
 
-            if(CONFIG.forceBday || (month === 1 && day === 6)) { 
-                document.getElementById('bday-overlay').style.display='flex'; 
-                state.city='boston';
-                return;
-            } 
-            
-            intro.style.display = 'flex';
-            setTimeout(() => document.getElementById('intro-content').classList.add('active'), 100);
+                if(CONFIG.forceBday || (month === 1 && day === 6)) { 
+                    document.getElementById('bday-overlay').style.display='flex'; 
+                    state.city='boston';
+                    return;
+                } 
+                
+                intro.style.display = 'flex';
+                setTimeout(() => document.getElementById('intro-content').classList.add('active'), 100);
 
-            if (month === 1) { // Febbraio
-                if (day < 4) {
+                if (month === 1) { 
+                    if (day < 4) {
+                        introBg.className = 'bg-layer bg-fusion';
+                        introTitle.innerText = "Ciao Giada";
+                        introSub.innerText = "Ready for takeoff?";
+                    }
+                    else if (day >= 4 && day < 7) {
+                        introBg.className = 'bg-layer bg-boston';
+                        introTitle.innerText = "Benvenuta a Boston";
+                        introSub.innerText = "Let the journey begin.";
+                        state.city = 'boston';
+                    }
+                    else if (day >= 7) {
+                        introBg.className = 'bg-layer bg-nyc';
+                        introTitle.innerText = "Benvenuta a New York";
+                        introSub.innerText = "The city awaits.";
+                        state.city = 'nyc';
+                    }
+                } else {
                     introBg.className = 'bg-layer bg-fusion';
-                    introTitle.innerText = "Ciao Giada";
-                    introSub.innerText = "Ready for takeoff?";
                 }
-                else if (day >= 4 && day < 7) {
-                    introBg.className = 'bg-layer bg-boston';
-                    introTitle.innerText = "Benvenuta a Boston";
-                    introSub.innerText = "Let the journey begin.";
-                    state.city = 'boston';
-                }
-                else if (day >= 7) {
-                    introBg.className = 'bg-layer bg-nyc';
-                    introTitle.innerText = "Benvenuta a New York";
-                    introSub.innerText = "The city awaits.";
-                    state.city = 'nyc';
-                }
-            } else {
-                introBg.className = 'bg-layer bg-fusion';
+                
+                updateUI();
+            } catch(e) {
+                // Fallback di sicurezza: se qualcosa va storto, mostra l'app direttamente
+                console.error(e);
+                closeIntro('intro-overlay');
             }
-            updateUI();
         };
 
         function setCity(c) { state.city=c; document.getElementById('city-bg').style.transform=c==='nyc'?'translateX(0)':'translateX(100%)'; updateUI(); }
         function setCat(c) { state.cat=c; document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('selected')); document.getElementById('cat-'+c).classList.add('selected'); updateUI(); }
         function setMode(m) { state.mode=m; document.getElementById('mode-bg').style.left=m==='classic'?'4px':'50%'; updateUI(); }
         function toggleMeteo() { state.weather=state.weather==='snow'?'sun':'snow'; document.getElementById('meteo-txt').innerText=state.weather==='snow'?'Neve':'Sole'; document.getElementById('outfit-text').innerText=state.weather==='snow'?'Neve: Thermal layers + Stivali':'Sole: Cappotto + Occhiali'; }
+        
         function closeIntro(id) { document.getElementById(id).style.opacity='0'; setTimeout(()=>{document.getElementById(id).style.display='none'; document.getElementById('main-app').style.display='flex'; setTimeout(()=>document.getElementById('main-app').style.opacity='1',100); },800); }
         function forceSecretBday() { document.getElementById('main-app').style.display='none'; document.getElementById('intro-overlay').style.display='none'; document.getElementById('bday-overlay').style.display='flex'; }
         function popBottle() { document.getElementById('bottle-scene').classList.add('shake'); document.getElementById('pop-btn').style.display='none'; setTimeout(()=>{ document.getElementById('bottle-scene').classList.remove('shake'); document.getElementById('bottle-scene').classList.add('pop'); document.getElementById('bday-msg').classList.remove('opacity-0','translate-y-10'); },1000); }
@@ -370,16 +350,21 @@
 
             const modeCtrl = document.getElementById('mode-control');
             modeCtrl.style.display = ['explore','food','hotel','shopping'].includes(state.cat) && !(state.city==='boston'&&state.cat==='hotel') ? 'flex' : 'none';
+            
             if(state.cat === 'shopping') {
                 document.getElementById('opt-classic').innerText = "Souvenir Chic";
                 document.getElementById('opt-niche').innerText = "Stravagante";
-            } else if (state.cat === 'hotel') {
+            } else if(state.cat === 'hotel') {
                 document.getElementById('opt-classic').innerText = "Grand Luxe";
                 document.getElementById('opt-niche').innerText = "Boutique";
             } else {
                 document.getElementById('opt-classic').innerText = "Refined Classics";
                 document.getElementById('opt-niche').innerText = "New & Niche";
             }
+
+            // Fix toggle visual state
+            document.getElementById('opt-classic').className = state.mode === 'classic' ? 'flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-[#004D54]' : 'flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-white/60';
+            document.getElementById('opt-niche').className = state.mode === 'niche' ? 'flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-[#004D54]' : 'flex-1 text-center py-2 text-[10px] font-bold uppercase z-10 transition text-white/60';
 
             if(state.cat === 'planner') {
                 const museums = db.filter(i => i.cat === 'explore' && i.city === state.city);
@@ -410,7 +395,7 @@
                     let btnHTML = '';
                     if(item.action === 'Chiama' || item.phone) btnHTML = `<a href="tel:${item.phone}" class="flex-1 bg-[#BFEBFF] text-[#004D54] py-3 rounded-xl text-center text-xs font-bold shadow-lg">Chiama <i class="fa-solid fa-phone ml-1"></i></a>`;
                     if(item.action === 'Mappa' || item.address) btnHTML += `<button onclick="openTaxiCard('${item.name.replace("'","\\'")}', '${item.address}')" class="flex-1 bg-[#004D54] border border-[#BFEBFF] text-[#BFEBFF] py-3 rounded-xl text-center text-xs font-bold ml-2">Mappa <i class="fa-solid fa-map-pin ml-1"></i></button>`;
-                    if(item.link) btnHTML += `<a href="${item.link}" target="_blank" class="flex-1 bg-[#004D54] border border-[#BFEBFF] text-[#BFEBFF] py-3 rounded-xl text-center text-xs font-bold ml-2 shadow-lg">${item.action === 'Mappa' ? 'Info' : item.action} <i class="fa-solid fa-arrow-right ml-1"></i></a>`;
+                    if(item.link) btnHTML += `<a href="${item.link}" target="_blank" class="flex-1 bg-[#004D54] border border-[#BFEBFF] text-[#BFEBFF] py-3 rounded-xl text-center text-xs font-bold ml-2 shadow-lg">${item.action === 'Mappa' ? 'Info' : (item.action || 'Vedi')} <i class="fa-solid fa-arrow-right ml-1"></i></a>`;
                     extraContent = `<div class="mt-4 flex gap-2">${btnHTML}</div>`;
                 }
 
