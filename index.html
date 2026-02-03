@@ -1,210 +1,675 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#004D54">
-    <title>2EMME | Prestige Guide</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --c-ottanio: #004D54; --c-sugar: #FCF6BA; --glass-bg: rgba(255, 255, 255, 0.08); --glass-border: rgba(252, 246, 186, 0.2); --c-magenta: #DB4F61; }
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #000; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .bg-layer { position: fixed; inset: 0; z-index: 0; background-size: cover; background-position: center top; transition: opacity 1s ease-in-out; opacity: 0; }
-        .show-bg { opacity: 1 !important; }
-        .bg-fusion { background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('nyboston.jpg'); }
-        .bg-nyc { background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('ny.jpg'); }
-        .bg-boston { background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('boston.jpg'); }
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; }
-        .city-bg { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc(50% - 4px); background: var(--c-sugar); border-radius: 99px; transition: transform 0.4s; z-index: 1; }
-        .city-btn.active { color: var(--c-ottanio); }
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px 20px; background: rgba(0, 77, 84, 0.9); }
-        .cat-chip { padding: 10px 4px; border-radius: 12px; border: 1px solid var(--glass-border); font-size: 8px; font-weight: 800; text-transform: uppercase; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: 0.3s; }
-        .cat-chip.selected { background: var(--c-sugar); color: var(--c-ottanio); }
-        .route-card { border-left: 3px solid var(--c-sugar); background: rgba(252, 246, 186, 0.05); padding: 16px; margin-top: 12px; border-radius: 0 16px 16px 0; }
-        .gold-text { font-family: 'Playfair Display', serif; background: linear-gradient(90deg, #BF953F, #FCF6BA, #B38728); -webkit-background-clip: text; color: transparent; }
-        .bottle-container { position: relative; width: 100px; height: 250px; }
-        .bottle-body { font-size: 120px; color: #2e4c26; transform: rotate(-15deg); filter: drop-shadow(0 0 20px #000); }
-        .cork { position: absolute; top: 25px; left: 45px; width: 20px; height: 25px; background: #8B4513; border-radius: 4px; transform: rotate(-15deg); transition: all 0.5s ease; }
-        .pop .cork { top: -200px; left: 200px; opacity: 0; }
-        .shake { animation: shake 0.5s infinite; }
-        @keyframes shake { 0%, 100% { transform: translate(0,0) rotate(-15deg); } 25% { transform: translate(-2px,2px) rotate(-15deg); } 75% { transform: translate(2px,-2px) rotate(-15deg); } }
-    </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+<title>2EMME — Guide (Definitive DB)</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --c-ottanio:#004D54; --c-sugar:#BFEBFF; --c-white:#fff; --glass-bg:rgba(255,255,255,0.04);
+  --glass-border:rgba(191,235,255,0.12);
+}
+body{font-family:"Plus Jakarta Sans",Inter,system-ui,Arial,sans-serif;background:var(--c-ottanio);color:var(--c-white);margin:0;-webkit-font-smoothing:antialiased}
+.glass{background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(10px);border-radius:12px;padding:12px}
+.header{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.title{font-weight:800}
+.small{font-size:13px;color:rgba(255,255,255,0.85)}
+.muted{color:rgba(255,255,255,0.75);font-size:13px}
+.btn{padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(90deg,#BF953F,#FCF6BA);color:#000}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--c-white)}
+.container{display:grid;grid-template-columns:1fr 420px;gap:16px;padding:18px;min-height:calc(100vh - 76px)}
+.feed{overflow:auto;padding:12px}
+.route-box{background:rgba(0,0,0,0.18);border-radius:10px;padding:10px;border:1px solid rgba(255,255,255,0.03)}
+#intro-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0.4),rgba(0,0,0,0.8));z-index:9998}
+#bday-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0.7),rgba(0,0,0,0.9));z-index:9999}
+footer{padding:12px;text-align:center;color:rgba(255,255,255,0.6);font-size:12px}
+@media(max-width:1100px){.container{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
 
-    <div id="layer-fusion" class="bg-layer bg-fusion show-bg"></div>
-    <div id="layer-nyc" class="bg-layer bg-nyc"></div>
-    <div id="layer-boston" class="bg-layer bg-boston"></div>
+<!-- INTRO -->
+<div id="intro-overlay" aria-hidden="false">
+  <div style="width:92%;max-width:980px" class="glass">
+    <div style="display:flex;gap:14px;align-items:center">
+      <div style="width:120px">
+        <div class="small muted">Meteo locale</div>
+        <div id="intro-weather-temp" style="font-weight:800;font-size:28px;margin-top:6px">--°C</div>
+        <div id="intro-weather-desc" class="muted">Caricamento…</div>
+        <div id="intro-weather-details" class="muted" style="margin-top:6px;font-size:12px"></div>
+      </div>
+      <div style="flex:1">
+        <div style="font-family:'Playfair Display',serif;font-size:34px;color:var(--c-sugar)">Ciao Giada</div>
+        <div style="font-size:18px;margin-top:6px">Are u ready to explore?</div>
+        <div class="muted" style="margin-top:10px">Sopra il meteo del luogo dove ti trovi (se autorizzi la posizione). Seleziona città o lascia che usi la posizione per suggerimenti iperlocali.</div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button id="enter-guide" class="btn btn-primary">Enter The Guide</button>
+          <button id="enter-no-geo" class="btn btn-ghost">Apri senza posizione</button>
+        </div>
+      </div>
+      <div style="width:200px;text-align:center">
+        <div class="small muted">Data / Special</div>
+        <div id="intro-date" style="font-weight:700;margin-top:6px"></div>
+        <div id="intro-special" class="muted" style="margin-top:8px;font-size:13px"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <div id="bday-overlay" class="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black transition-opacity duration-1000" style="display:none;">
-        <div id="bottle-scene" class="bottle-container mb-8">
-            <div class="cork"></div><i class="fa-solid fa-wine-bottle bottle-body"></i>
+<!-- BIRTHDAY (Coppia) -->
+<div id="bday-overlay">
+  <div style="width:90%;max-width:920px" class="glass" id="bday-card">
+    <div style="display:flex;gap:18px;align-items:center">
+      <div style="flex:1">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;color:#FFD700">Happy Birthday, Giada</div>
+        <div style="font-weight:700;margin-top:6px">6 February — Special Couples' Edition</div>
+        <div class="muted" style="margin-top:8px">Ho preparato una pagina speciale per la coppia: percorsi romantici, ristoranti intimi, attività da fare insieme (terme/private spa, terrazze panorama), e voucher stampabili.</div>
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <button id="enter-bday" class="btn btn-primary">Apri versione Coppia</button>
+          <button id="close-bday" class="btn btn-ghost">Torna alla guida normale</button>
         </div>
-        <div id="bday-msg" class="text-center opacity-0 transition-all duration-1000 transform translate-y-10 p-6">
-            <h1 class="gold-text text-8xl font-bold leading-none">50</h1>
-            <h2 class="gold-text text-3xl italic mb-10">Happy Birthday Giada</h2>
-            <button onclick="exitBday()" class="px-12 py-4 bg-[#FCF6BA] text-[#004D54] font-bold rounded-full text-xs uppercase tracking-widest shadow-2xl">Entra nella Guida</button>
+      </div>
+      <div style="width:240px">
+        <div class="route-box" style="text-align:left">
+          <div style="font-weight:700">Idea Romantic Quick</div>
+          <div class="muted" style="margin-top:6px">Aperitivo terrazza → Passeggiata al tramonto → Cena intima (reservation + piano B walk-in) → Massaggio di coppia</div>
         </div>
-        <button id="pop-btn" onclick="popBottle()" class="px-10 py-4 bg-white/10 border border-[#FCF6BA] text-[#FCF6BA] font-bold rounded-xl uppercase animate-pulse">Stappa 🍾</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div style="display:flex;gap:12px;align-items:center">
+    <div style="width:48px;height:48px;border-radius:12px;background:#00383D;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-gem" style="color:var(--c-sugar)"></i></div>
+    <div>
+      <div class="title">2EMME — Guide</div>
+      <div class="small muted">Interactive planner — concierge & itineraries</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button id="force-bday" class="btn btn-ghost">Forza Bday</button>
+    <button id="open-planner" class="btn btn-primary">Apri Planner</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="container">
+  <!-- LEFT: planner / feed -->
+  <main>
+    <section class="glass" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:800">Concierge Planner</div>
+          <div class="muted">Scegli città, categoria, museo e durata. Generatore itinerario: Must / Alternativo / Completo + piano giornaliero con pranzo, caffè, spa, manicure.</div>
+        </div>
+        <div class="muted">Timezone: Europe/Rome</div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+        <select id="city-select" class="glass" style="padding:8px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06)">
+          <option value="nyc">New York</option>
+          <option value="boston">Boston</option>
+        </select>
+
+        <select id="cat-select" class="glass" style="padding:8px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06)">
+          <option value="explore">Explore / Musei</option>
+          <option value="food">Food</option>
+          <option value="shopping">Shopping</option>
+        </select>
+
+        <button id="load-options" class="btn btn-primary">Carica proposte</button>
+      </div>
+
+      <div id="planner-area" style="margin-top:14px;display:none">
+        <div style="display:flex;gap:10px;align-items:center">
+          <label class="small muted">Museo / Attrazione</label>
+          <select id="museum-select" style="flex:1;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04)"></select>
+          <label class="small muted">Ore</label>
+          <select id="museum-hours" style="width:80px;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04)">
+            <option value="1">1h</option><option value="2" selected>2h</option><option value="3">3h</option>
+          </select>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button id="gen-itinerary" class="btn btn-primary">Genera itinerario (Must / Alternativo / Completo)</button>
+          <button id="concierge-suggest" class="btn btn-ghost">Genera programma + suggerimenti</button>
+        </div>
+
+        <div id="planner-result" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <section id="feed" class="glass feed">
+      <div id="timeline-content" class="muted">Timeline non generata.</div>
+    </section>
+  </main>
+
+  <!-- RIGHT: services -->
+  <aside>
+    <div class="glass" style="margin-bottom:12px">
+      <div style="font-weight:800">Servizi locali & Prenotazioni</div>
+      <div class="muted">Verifica disponibilità (simulata). Se non disponibile suggerisce alternativa walk-in.</div>
+      <div id="service-box" style="margin-top:12px"></div>
     </div>
 
-    <div id="main-app" class="relative z-10 h-screen flex flex-col">
-        <header class="px-6 pt-10 pb-4 bg-gradient-to-b from-[#004D54] to-transparent">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3 cursor-pointer" onclick="handleSecretClick()">
-                    <div class="w-10 h-10 rounded-xl bg-[#FCF6BA] flex items-center justify-center text-[#004D54] shadow-lg"><i class="fa-solid fa-gem text-lg"></i></div>
-                    <div><h1 class="text-lg font-black leading-none uppercase tracking-tighter">2EMME</h1><p class="text-[8px] text-[#FCF6BA] tracking-widest uppercase">Prestige Guide</p></div>
-                </div>
-            </div>
-            <div class="relative bg-black/40 rounded-full p-1 flex border border-white/10">
-                <div id="city-bg" class="city-bg"></div>
-                <button onclick="changeCity('nyc')" id="btn-nyc" class="flex-1 city-btn py-2 text-[10px] font-bold z-10 active uppercase">New York</button>
-                <button onclick="changeCity('boston')" id="btn-boston" class="flex-1 city-btn py-2 text-[10px] font-bold z-10 uppercase">Boston</button>
-            </div>
-        </header>
-        
-        <nav class="menu-grid" id="nav-menu">
-            </nav>
-
-        <div id="mode-selector" class="px-6 mt-4" style="display:none;">
-            <div class="relative bg-black/30 rounded-full p-1 flex border border-white/10">
-                <div id="mode-bg" class="absolute left-1 top-1 bottom-1 w-[calc(50%-4px)] bg-[#FCF6BA] rounded-full transition-all duration-300 z-1"></div>
-                <button onclick="setMode('classic')" id="m-classic" class="mode-toggle-btn active uppercase p-2 text-[9px] font-bold flex-1 text-center">Classics</button>
-                <button onclick="setMode('new')" id="m-new" class="mode-toggle-btn uppercase p-2 text-[9px] font-bold flex-1 text-center">New Scene</button>
-            </div>
-        </div>
-
-        <div id="feed" class="flex-1 overflow-y-auto px-5 py-4 space-y-4 no-scrollbar"></div>
+    <div class="glass">
+      <div style="font-weight:800">Suggerimenti rapidi</div>
+      <ul class="muted" style="margin-left:12px;margin-top:8px">
+        <li>Genera itinerario → aggiungi alla timeline → stampa voucher.</li>
+        <li>Il 6 febbraio appare automaticamente la sezione romantica per coppie.</li>
+        <li>Se la prenotazione fallisce, il sistema propone alternative walk-in vicino.</li>
+      </ul>
     </div>
+  </aside>
+</div>
 
-    <script>
-        let state = { city:'nyc', cat:'planner', mode:'classic', isBdayMode: false };
-        let clickCount = 0;
-        let lastClickTime = 0;
+<footer>© 2026 2EMME Real Estate — Internal Use Only</footer>
 
-        // Easter Egg Logic
-        function handleSecretClick() {
-            const now = Date.now();
-            if (now - lastClickTime < 500) {
-                clickCount++;
-            } else {
-                clickCount = 1;
-            }
-            lastClickTime = now;
+<script>
+/* ---------------------------
+   DATABASE DEFINITIVO (ESTESO)
+   - Musei: dettagli opere/autori/descrizioni
+   - Proposte: 5 classic + 5 new per categoria (explore/food/shopping)
+   - Servizi: food/coffee/spa/manicure con contatti
+   --------------------------- */
 
-            if (clickCount === 3) {
-                document.getElementById('bday-overlay').style.display = 'flex';
-                clickCount = 0;
-            }
+const DB = {
+  // MUSEI (dettagli estesi: opere, autori, descrizione must/alt/full)
+  museums: [
+    {
+      id: 1, city: 'nyc', name: 'MoMA', zone:'Midtown', type:'classic',
+      overview: "Il Museum of Modern Art (MoMA) è il principale museo d'arte moderna e contemporanea di New York. Collezione fondamentale per Impressionismo tardo, Post-Impressionismo, Modernismo e arte contemporanea.",
+      highlights: [
+        {title: "The Starry Night", author: "Vincent van Gogh (1889)", desc: "Uno degli esempi più intensi di Post-Impressionismo: cielo dinamico, pennellate vorticosi e uso simbolico del colore. Punto focale del percorso MoMA."},
+        {title: "Les Demoiselles d'Avignon", author:"Pablo Picasso (1907)", desc: "Caposaldo del cubismo primordiale: rottura prospettiva, frammentazione del corpo umano."},
+        {title: "Campbell's Soup Cans", author:"Andy Warhol (1962)", desc: "Icona della Pop Art: riflessione sulla produzione di massa e cultura dei consumi."}
+      ],
+      must:["The Starry Night — analisi colore e pennellate", "Picasso: rottura prospettiva", "Pollock: azione pittorica"],
+      alternative:["Mostre temporanee di design, bookshop tematico con saggi", "Visite guidate one-to-one a rotazione"],
+      full:["Tour cronologico: dalle origini del Moderno fino al contemporaneo; include visita alla collezione permanente e almeno una sala temporanea"],
+      notes: "Gallery e rotazioni: verificare sale aperte il giorno della visita."
+    },
+
+    {
+      id: 2, city: 'nyc', name: 'The Met (Metropolitan Museum of Art)', zone:'Upper East Side', type:'classic',
+      overview: "Il Met è una delle raccolte d'arte più vaste al mondo: dall'antichità al contemporaneo. Offre nuclei ricchissimi (medievale, europeo, americano, asiatico).",
+      highlights: [
+        {title:"The Harvesters", author:"Pieter Bruegel the Elder (1565)", desc:"Capolavoro del Rinascimento nordico che ritrae la vita contadina con straordinaria narrazione e dettaglio."},
+        {title:"Portraits & Dutch Golden Age", author:"Vermeer, Rembrandt", desc:"Dipinti che mostrano la maestria della luce e la sensibilità per il ritratto."},
+        {title:"Egyptian Temple & Antiquities", author:"Collezione storica", desc:"Reperti dell'antico Egitto, statue e rilievi."
         }
+      ],
+      must:["European Paintings: Bruegel, Vermeer, Rembrandt", "American Wing: sviluppo testa-a-testa con il XIX secolo"],
+      alternative:["The Cloisters (medievale) per chi vuole storia e giardini", "Roof Garden (stagionale) per vista e installazioni contemporanee"],
+      full:["Percorso 3h: Ancient Art → European Paintings → American Wing → Special Exhibition"],
+      notes:"Il Met è enorme: seleziona 2/3 nuclei per visita breve."
+    },
 
-        const db = [
-            // ROMANTIC COUPLE
-            { id:300, city:'nyc', cat:'romantic', name:'Private Yacht Sunset', zone:'Hudson River', desc:'Mini crociera privata per due con champagne mentre il sole scompare dietro la Statua della Libertà.', icon:'fa-ship', price:'$400', rate:'5.0' },
-            { id:301, city:'nyc', cat:'romantic', name:'The River Café Table', zone:'DUMBO', desc:'Tavolo d\'angolo garantito. La vista più romantica del mondo sul ponte di Brooklyn.', icon:'fa-wine-glass', price:'$$$$', rate:'4.9' },
-            { id:302, city:'boston', cat:'romantic', name:'Gondola on Charles', zone:'Charles River', desc:'Gondola veneziana riscaldata. Un momento magico nel cuore di Boston.', icon:'fa-anchor', price:'$200', rate:'4.8' },
-            // SPA & BEAUTY
-            { id:100, city:'nyc', cat:'spa', mode:'classic', name:'Aire Ancient Baths', zone:'TriBeCa', desc:'Bagni termali al lume di candela in un edificio del 1883. Massaggio di coppia incluso.', icon:'fa-hot-tub-person', price:'$250+', link:'https://beaire.com' },
-            { id:102, city:'nyc', cat:'spa', mode:'classic', name:'Jin Soon Spa', zone:'West Village', desc:'Manicure d\'eccellenza consigliata da Vogue. Per mani impeccabili prima della serata.', icon:'fa-hand-sparkles', price:'$60+' },
-            // MUSEI
-            { id:1, city:'nyc', cat:'explore', name:'MoMA', zone:'Midtown', icon:'fa-palette', desc:'L\'arte moderna nel suo tempio.', percorsi: {
-                p1:{t:'1h - Masterpieces', d:'Le icone: Van Gogh (Notte Stellata) e Monet (Ninfee).'},
-                p2:{t:'2h - Oltre l\'Icona', d:'L\'energia del colore: Barnett Newman e Joan Mitchell.'},
-                p3:{t:'3h - Tailor Made Design', d:'Dall\'estetica industriale ai computer Apple.'}
-            }},
-            // FOOD CLASSIC NYC
-            { id:20, city:'nyc', cat:'food', mode:'classic', name:'Carbone', zone:'Village', desc:'Lusso anni 50 e rigatoni leggendari.', dish:'Spicy Rigatoni', rate:'4.5', price:'$$$$', link:'https://resy.com/cities/ny/carbone', icon:'fa-utensils' },
-            // TIPS
-            { id:200, city:'nyc', cat:'tips', name:'Survival Neve', zone:'Logistica', desc:'Se nevica forte, usa la Metro. Il fango di NY rovina le pelli chiare: usa impermeabilizzante.', icon:'fa-snowflake', isAlert:true }
-        ];
+    {
+      id: 3, city: 'nyc', name: 'Poster House', zone:'Chelsea', type:'niche',
+      overview: "Museo dedicato al poster e alla grafica applicata: storia, tecnica, esempi di comunicazione visiva dal XIX secolo a oggi.",
+      highlights:[
+        {title:"Vintage Advertising Posters", author:"Anon / designer storici", desc:"Poster pubblicitari che mostrano evoluzione grafica e uso tipografico."},
+        {title:"Propaganda & Political Posters", author:"Varie", desc:"Analisi di come il poster comunica messaggi politici e sociali."}
+      ],
+      must:["Sezione storia del poster — caratteristiche della stampa litografica", "Sezione contemporanea con artisti grafici"],
+      alternative:["Workshop tematici quando in calendario"],
+      full:["Visita 1–1.5h con approfondimento su impostazione grafica e tecniche di stampa"],
+      notes:"Ideale per appassionati di design e comunicazione visiva."
+    },
 
-        function popBottle() {
-            document.getElementById('bottle-scene').classList.add('shake');
-            document.getElementById('pop-btn').style.display = 'none';
-            setTimeout(() => {
-                document.getElementById('bottle-scene').classList.remove('shake');
-                document.getElementById('bottle-scene').classList.add('pop');
-                document.getElementById('bday-msg').classList.remove('opacity-0','translate-y-10');
-            }, 1000);
+    {
+      id: 4, city: 'boston', name: 'Museum of Fine Arts (MFA)', zone:'Fenway', type:'classic',
+      overview: "La collezione MFA copre pittura europea (ricca in Impressionismo), arte asiatica, americane e molto altro: sede storica con opere di Monet, Degas, Renoir.",
+      highlights:[
+        {title:"Claude Monet — varie tele", author:"Claude Monet", desc:"Monet è presente con diverse opere chiave che mostrano la ricerca della luce e del colore (Water Lilies, etc.)."},
+        {title:"Edgar Degas — The Little Dancer", author:"Edgar Degas", desc:"Scultura e disegni che documentano il mondo del balletto e la sperimentazione formale."}
+      ],
+      must:["Impressionisti (Monet, Renoir) — studio della luce", "Degas: scultura e disegno"],
+      alternative:["Sezione americana 19° secolo, collezione asiatica"],
+      full:["Percorso 2–3h: Impressionisti → European Paintings → American Art"],
+      notes:"Controllare mostre temporanee e sale chiuse."
+    },
+
+    {
+      id: 5, city: 'boston', name: 'MIT Museum', zone:'Cambridge', type:'niche',
+      overview: "Museo che mette in luce tecnologia, robotica, AI e intersezione tra arte e scienza. Ideale per visitatori tech-curious.",
+      highlights:[
+        {title:"AI & Robotics Exhibits", author:"Curated MIT teams", desc:"Installazioni interattive che spiegano principi di machine learning e robotica applicata."},
+        {title:"Kinetic Sculptures & Makers' Projects", author:"Various", desc:"Progetti sperimentali che connettono arte, progettazione e ricerca."
         }
+      ],
+      must:["AI Mind The Gap — mostra su AI e impatti sociali", "Robotica: prototipi e interazioni"],
+      alternative:["Workshop hands-on e talk when scheduled"],
+      full:["Visita 1–2h: mostra principale + laboratori"],
+      notes:"Adatto a famiglie e studenti; check programmi per demo live."
+    }
+  ],
 
-        function exitBday() {
-            document.getElementById('bday-overlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('bday-overlay').style.display = 'none';
-                state.isBdayMode = true;
-                renderMenu();
-                setCat('romantic');
-                changeCity('nyc');
-            }, 800);
-        }
+  // EXPLORE: 5 classic + 5 new per city (esempi selezionati)
+  explore: {
+    nyc: {
+      classic: [
+        {name:'MoMA', id:1},
+        {name:'The Met', id:2},
+        {name:'High Line', desc:'Passeggiata sopraelevata con installazioni d'arte e natura.'},
+        {name:'Grand Central', desc:'Capolavoro architettonico e soffitto stellato.'},
+        {name:'MoMA PS1 / Whitney (rotazione mostre)', desc:'Musei di arte contemporanea.'}
+      ],
+      niche: [
+        {name:'Poster House', id:3},
+        {name:'Mercer Labs', desc:'Museo immersivo e installazioni digitali.'},
+        {name:'Domino Park (Brooklyn)', desc:'Parco e viste fiume, architettura industriale riadattata.'},
+        {name:'Eavesdrop (listening bar)', desc:'Esperienza sonora immersiva.'},
+        {name:'Poster & Graphic Walk (Chelsea galleries)', desc:'Percorso tra gallerie indipendenti.'}
+      ]
+    },
+    boston: {
+      classic: [
+        {name:'MFA', id:4},
+        {name:'Freedom Trail', desc:'Percorso storico cittadino con tappe fondamentali.'},
+        {name:'Boston Public Library', desc:'Sala Bates e architettura storica.'},
+        {name:'Quincy Market', desc:'Mercato storico per cibo locale.'},
+        {name:'Harvard / MIT campus walk', desc:'Tour accademico e architetture storiche.'}
+      ],
+      niche: [
+        {name:'MIT Museum', id:5},
+        {name:'SoWa Market', desc:'Mercato artisti & vintage (weekend)'},
+        {name:'Mapparium', desc:'Globo di vetro immersivo con acustica peculiare'},
+        {name:'Isabella Stewart Gardner Museum', desc:'Collezione intima con atrio centrale'},
+        {name:'Hidden Rooftop Bars (Back Bay)', desc:'Terrazze locali per tramonto'}
+      ]
+    }
+  },
 
-        function renderMenu() {
-            const nav = document.getElementById('nav-menu');
-            let items = [
-                {id:'planner', icon:'fa-calendar-day', label:'Planner'},
-                {id:'explore', icon:'fa-landmark', label:'Musei'},
-                {id:'food', icon:'fa-utensils', label:'Food'}
-            ];
-            if(state.isBdayMode) items.push({id:'romantic', icon:'fa-heart', label:'Couple'});
-            items.push({id:'spa', icon:'fa-spa', label:'Beauty'}, {id:'tips', icon:'fa-circle-info', label:'Tips'});
+  // FOOD: 5 classic + 5 new per city
+  food: {
+    nyc: {
+      classic:[
+        {name:'Carbone', zone:'Village', type:'classic', link:'https://resy.com/cities/new-york-ny/venues/carbone'},
+        {name:"Katz's Deli", zone:'LES', type:'classic', link:'https://katzsdelicatessen.com/'},
+        {name:'Balthazar', zone:'SoHo', type:'classic', link:'https://resy.com/cities/new-york-ny/venues/balthazar'},
+        {name:'Keens Steakhouse', zone:'Midtown', type:'classic'},
+        {name:'The Polo Bar', zone:'Midtown', type:'classic'}
+      ],
+      niche:[
+        {name:'Laser Wolf', zone:'Brooklyn', type:'niche', link:'https://resy.com/cities/new-york-ny/venues/laser-wolf-brooklyn'},
+        {name:'Misi', zone:'Brooklyn', type:'niche', link:'https://resy.com/cities/new-york-ny/venues/misi'},
+        {name:'Four Horsemen', zone:'Brooklyn', type:'niche'},
+        {name:'Dimes Square spots', zone:'LES', type:'niche'},
+        {name:'Hidden supper clubs', zone:'Various', type:'niche'}
+      ]
+    },
+    boston: {
+      classic:[
+        {name:'Union Oyster House', zone:'North End'},
+        {name:'Neptune Oyster', zone:'North End'},
+        {name:'Contessa', zone:'Back Bay'},
+        {name:'Tatte Bakery', zone:'Back Bay'},
+        {name:'The Capital Grille', zone:'Boylston'}
+      ],
+      niche:[
+        {name:'Mikiya Wagyu', zone:'Chinatown'},
+        {name:'Hecate (speakeasy)', zone:'Back Bay'},
+        {name:'Krasi', zone:'Back Bay'},
+        {name:'Comfort Kitchen', zone:'Dorchester'},
+        {name:'Tonino', zone:'Jamaica Plain'}
+      ]
+    }
+  },
 
-            nav.innerHTML = items.map(i => `<button onclick="setCat('${i.id}')" id="cat-${i.id}" class="cat-chip ${state.cat === i.id ? 'selected' : ''}"><i class="fa-solid ${i.icon}"></i>${i.label}</button>`).join('');
-        }
+  // SHOPPING: 5 classic + 5 new per city
+  shopping: {
+    nyc: {
+      classic:[
+        {name:'Strand Bookstore', zone:'Union Square'},
+        {name:'Fishs Eddy', zone:'Flatiron'},
+        {name:'Economy Candy', zone:'Lower East Side'},
+        {name:'Chelsea Market (art & food)', zone:'Chelsea'},
+        {name:'Brookfield Place shops', zone:'FiDi'}
+      ],
+      niche:[
+        {name:'Dover Street Market', zone:'Lexington Ave'},
+        {name:'Showfields', zone:'NoHo'},
+        {name:'Kith', zone:'SoHo'},
+        {name:'Artists-run popups', zone:'Various'},
+        {name:'Vintage boutiques in LES', zone:'LES'}
+      ]
+    },
+    boston: {
+      classic:[
+        {name:'Brattle Book Shop', zone:'Downtown'},
+        {name:'Beacon Hill boutiques', zone:'Beacon Hill'},
+        {name:'Harvard Square shops', zone:'Cambridge'},
+        {name:'Prudential Center', zone:'Back Bay'},
+        {name:'Newbury Street', zone:'Back Bay'}
+      ],
+      niche:[
+        {name:'SoWa Market (vintage/art)', zone:'South End'},
+        {name:'Independent design shops', zone:'Cambridge'},
+        {name:'Local artisanal markets', zone:'Various'},
+        {name:'Hidden concept stores', zone:'Back Bay'},
+        {name:'Sneaker boutiques', zone:'Seaport'}
+      ]
+    }
+  },
 
-        function changeCity(c) {
-            state.city = c;
-            document.getElementById('city-bg').style.transform = c === 'nyc' ? 'translateX(0)' : 'translateX(100%)';
-            document.querySelectorAll('.bg-layer').forEach(l => l.classList.remove('show-bg'));
-            document.getElementById('layer-' + c).classList.add('show-bg');
-            updateUI();
-        }
+  // SERVIZI (dettagli per concierge)
+  services: {
+    nyc:{
+      food:[
+        {name:'Carbone', zone:'Village', phone:'+12127500000', link:'https://resy.com/cities/new-york-ny/venues/carbone'},
+        {name:'Katz\'s Deli', zone:'LES', phone:'+12127372121', link:'https://katzsdelicatessen.com/'}
+      ],
+      coffee:[
+        {name:'Blue Bottle (Chelsea)', zone:'Chelsea', link:'https://bluebottlecoffee.com'},
+        {name:'Stumptown (West Village)', zone:'Village'}
+      ],
+      spa:[
+        {name:'Great Jones Spa', zone:'NoHo', phone:'+12127500011', link:'https://greatjonesspa.com'},
+        {name:'AIRE Ancient Baths', zone:'TriBeCa'}
+      ],
+      manicure:[
+        {name:'Paintbox', zone:'SoHo', phone:'+12127500021'},
+        {name:'Olive & June', zone:'Chelsea'}
+      ]
+    },
+    boston:{
+      food:[
+        {name:'Union Oyster House', zone:'North End', phone:'+16172200000', link:'https://www.unionoysterhouse.com'},
+        {name:'Neptune Oyster', zone:'North End'}
+      ],
+      coffee:[
+        {name:'Tatte Bakery', zone:'Back Bay', link:'https://tattebakery.com'}
+      ],
+      spa:[
+        {name:'Exhale Back Bay', zone:'Back Bay', link:'https://exhalespa.com'},
+        {name:'G2O Spa', zone:'Seaport'}
+      ],
+      manicure:[
+        {name:'Paint Nail Bar', zone:'Back Bay'}
+      ]
+    }
+  }
+};
 
-        function setCat(c) {
-            state.cat = c;
-            renderMenu();
-            document.getElementById('mode-selector').style.display = (c === 'food' || c === 'spa') ? 'block' : 'none';
-            updateUI();
-        }
+/* ---------------------------
+   UTILITY FUNCTIONS (UI + METEO)
+   --------------------------- */
+function $(id){ return document.getElementById(id); }
+function show(el){ if(el) el.style.display='block'; }
+function hide(el){ if(el) el.style.display='none'; }
+function nowDateStr(){ const d=new Date(); return d.toLocaleDateString('it-IT',{weekday:'long',day:'2-digit',month:'2-digit',year:'numeric'}); }
+function fmtTime(d){ return new Date(d).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
 
-        function setMode(m) {
-            state.mode = m;
-            document.getElementById('mode-bg').style.left = (m === 'classic') ? '4px' : 'calc(50% + 4px)';
-            updateUI();
-        }
+/* Open-Meteo helper (no key) */
+async function fetchWeather(lat, lon){
+  try{
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Europe%2FRome`;
+    const r = await fetch(url); if(!r.ok) throw new Error('Meteo non disponibile');
+    return await r.json();
+  }catch(e){ console.warn(e); return null; }
+}
 
-        function updateUI() {
-            const feed = document.getElementById('feed');
-            feed.innerHTML = '';
-            
-            if (state.cat === 'planner') {
-                const museums = db.filter(i => i.cat === 'explore' && i.city === state.city);
-                feed.innerHTML = `<div class="glass-panel"><h2 class="font-serif text-2xl mb-4 text-[#FCF6BA] italic text-center">Art Concierge</h2><select id="p-sel" class="w-full bg-black/40 p-4 rounded-xl mb-4 text-sm border border-white/10 outline-none text-white">${museums.map(m => `<option value="${m.id}">${m.name}</option>`).join('')}</select><select id="t-sel" class="w-full bg-black/40 p-4 rounded-xl mb-6 text-sm border border-white/10 outline-none text-white"><option value="p1">1 Ora (Masterpieces)</option><option value="p2">2 Ore (Deep Dive)</option><option value="p3">3 Ore (Tailor Made)</option></select><button onclick="calcPlan()" class="w-full py-5 bg-[#FCF6BA] text-[#004D54] font-black rounded-xl text-[10px] uppercase tracking-widest">Genera Narrativa</button><div id="res-box" class="mt-6"></div></div>`;
-                return;
-            }
+/* Map degrees to cardinal */
+function deg2card(d){ if(d==null) return ''; const dirs=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW']; return dirs[Math.round(d/22.5)%16]; }
 
-            db.filter(i => i.city === state.city && i.cat === state.cat && (['food','spa'].indexOf(state.cat) === -1 || i.mode === state.mode)).forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'glass-panel flex gap-4 animate-in fade-in duration-500';
-                if(item.isAlert) card.style.borderColor = 'var(--c-magenta)';
-                card.innerHTML = `<div class="w-12 h-12 shrink-0 bg-white/5 rounded-2xl flex items-center justify-center text-[#FCF6BA] border border-white/10"><i class="fa-solid ${item.icon || 'fa-star'}"></i></div><div class="flex-1"><h4 class="font-black text-white text-md uppercase leading-tight">${item.name}</h4><p class="text-[9px] text-gray-400 uppercase tracking-widest mb-3">${item.zone} • ${item.price || ''}</p><p class="text-xs text-gray-300 font-light leading-relaxed">${item.desc}</p>${item.dish ? `<p class="text-[11px] text-[#FCF6BA] mt-3 font-bold">Must: ${item.dish}</p>` : ''}<div class="flex gap-2 mt-4">${item.link ? `<a href="${item.link}" target="_blank" class="flex-1 py-2 border border-[#FCF6BA] text-[#FCF6BA] rounded-lg text-center text-[10px] font-bold uppercase tracking-widest">Reserve</a>` : ''}</div></div>`;
-                feed.appendChild(card);
-            });
-        }
+/* show weather in intro */
+async function tryShowWeatherWithGeo(){
+  let coords=null;
+  try{
+    coords = await new Promise((res,rej)=> navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lon:p.coords.longitude}),e=>rej(e),{timeout:8000}));
+  }catch(e){ coords=null; }
+  if(!coords){
+    // fallback to New York by default
+    coords = {lat:40.7128, lon:-74.0060};
+  }
+  const data = await fetchWeather(coords.lat, coords.lon);
+  if(!data || !data.current_weather) return;
+  const c = data.current_weather;
+  $('intro-weather-temp').innerText = Math.round(c.temperature) + '°C';
+  $('intro-weather-desc').innerText = c.weathercode || 'Condizioni';
+  const daily = data.daily || {};
+  const min = daily.temperature_2m_min ? Math.round(daily.temperature_2m_min[0])+'°C' : '--';
+  const max = daily.temperature_2m_max ? Math.round(daily.temperature_2m_max[0])+'°C' : '--';
+  $('intro-weather-details').innerText = `Vento ${Math.round(c.windspeed)} km/h ${deg2card(c.winddirection)} • Min ${min} • Max ${max}`;
+}
 
-        function calcPlan() {
-            const mId = document.getElementById('p-sel').value;
-            const routeKey = document.getElementById('t-sel').value;
-            const museum = db.find(i => i.id == mId);
-            const route = museum.percorsi[routeKey];
-            document.getElementById('res-box').innerHTML = `<div class="route-card"><p class="text-[10px] text-[#FCF6BA] font-black uppercase mb-2 tracking-widest">${route.t}</p><p class="text-xs text-gray-200 italic">"${route.d}"</p></div>`;
-        }
+/* ---------------------------
+   UI: Intro / Birthday behavior
+   --------------------------- */
+window.addEventListener('load', async ()=>{
+  $('intro-date').innerText = nowDateStr();
+  tryShowWeatherWithGeo();
+  // show intro overlay: handled by DOM default
+  // show birthday overlay on Feb 6 or when forced
+  const today = new Date(); const month = today.getMonth(); const day = today.getDate();
+  if((month===1 && day===6) ){ // Feb = 1
+    $('bday-overlay').style.display='flex';
+  }
+});
 
-        // Initialize Menu
-        renderMenu();
-    </script>
+$('enter-guide').addEventListener('click', ()=>{ $('intro-overlay').style.display='none'; });
+$('enter-no-geo').addEventListener('click', ()=>{ $('intro-overlay').style.display='none'; });
+$('force-bday').addEventListener('click', ()=>{ $('bday-overlay').style.display='flex'; });
+$('close-bday').addEventListener('click', ()=>{ $('bday-overlay').style.display='none'; });
+$('enter-bday').addEventListener('click', ()=>{ $('bday-overlay').style.display='none'; $('intro-overlay').style.display='none'; alert('Hai aperto la versione coppia — vedrai consigli romantici nel planner il 6 febbraio.'); });
+
+/* ---------------------------
+   Planner UI actions
+   --------------------------- */
+$('load-options').addEventListener('click', ()=>{
+  const city = $('city-select').value;
+  const cat = $('cat-select').value;
+  if(cat==='explore'){
+    const list = DB.museums.filter(m=>m.city===city);
+    const sel = $('museum-select'); sel.innerHTML='';
+    // ensure we have at least the curated list from DB.explore as well
+    const curated = DB.explore[city].classic.concat(DB.explore[city].niche);
+    // include detailed museum items if present
+    const seen = new Set();
+    curated.forEach(it=>{
+      let label = it.name + (it.zone ? ' ('+ (it.zone) +')' : '');
+      const opt = document.createElement('option'); opt.value = it.name; opt.innerText = label; sel.appendChild(opt); seen.add(it.name);
+    });
+    // also add DB.museums detailed
+    DB.museums.filter(m=>m.city===city).forEach(m=>{
+      if(!seen.has(m.name)){
+        const opt = document.createElement('option'); opt.value = m.name; opt.innerText = m.name + ' — ' + (m.zone||''); sel.appendChild(opt);
+      }
+    });
+    $('planner-area').style.display='block';
+  } else {
+    // show service recommendations
+    const box = $('service-box'); box.innerHTML='';
+    const services = DB.services[city];
+    let arr = cat==='food' ? DB.food[city].classic.concat(DB.food[city].niche) : DB.shopping[city].classic.concat(DB.shopping[city].niche);
+    arr.slice(0,10).forEach(s=>{
+      const node = document.createElement('div'); node.style.marginBottom='10px';
+      node.innerHTML = `<div style="font-weight:700">${s.name} <span class="muted">— ${s.zone||''}</span></div>
+        <div class="muted" style="margin-top:6px">${s.desc||''}</div>
+        <div style="margin-top:8px"><button class="btn btn-primary" onclick="checkReservation('${city}','${s.name}','${s.zone||''}','${s.link||''}')">Verifica prenotazione</button></div>`;
+      box.appendChild(node);
+    });
+    $('planner-area').style.display='none';
+  }
+});
+
+$('gen-itinerary').addEventListener('click', ()=>{
+  const museumName = $('museum-select').value;
+  const hours = parseInt($('museum-hours').value,10);
+  if(!museumName) { alert('Seleziona un museo/attrazione'); return; }
+  // retrieve detailed museum if available
+  const m = DB.museums.find(x => x.name === museumName) || DB.museums.find(x => x.name.includes(museumName)) || {name:museumName, overview:'', must:[], alternative:[], full:[]};
+  const it = buildMuseumItinerary(m, hours);
+  renderItinerary(it,m);
+});
+
+$('concierge-suggest').addEventListener('click', ()=>{
+  const museumName = $('museum-select').value;
+  const hours = parseInt($('museum-hours').value,10);
+  const city = $('city-select').value;
+  if(!museumName) { alert('Seleziona un museo'); return; }
+  const m = DB.museums.find(x => x.name === museumName) || {name:museumName, overview:'', must:[], alternative:[], full:[]};
+  const it = buildMuseumItinerary(m, hours);
+  const plan = conciergePlan(city, m, it);
+  renderConcierge(plan);
+});
+
+/* ---------------------------
+   Itinerary generator (dettagliato)
+   - crea steps con orari, spiegazioni opere/autori
+   --------------------------- */
+function buildMuseumItinerary(museum, hours){
+  // hours 1..3
+  const start = new Date(); start.setHours(10,30,0,0);
+  const steps = [];
+  const per = Math.max(1, Math.min(3, hours));
+  // choose items to highlight: if museum.highlights exists use them
+  const highlights = museum.highlights || [];
+  for(let i=0;i<per && i<highlights.length;i++){
+    const h = highlights[i];
+    steps.push({time: fmtTime(new Date(start.getTime() + i*45*60000)), title:`Focus: ${h.title}`, note:`Autore: ${h.author}. ${h.desc}`});
+  }
+  // overview and alternatives
+  steps.push({time: fmtTime(new Date(start.getTime() + per*45*60000)), title:'Panoramica collezione', note: museum.overview || ''});
+  steps.push({time: fmtTime(new Date(start.getTime() + (per+1)*30*60000)), title:'Percorso alternativo', note: (museum.alternative || []).join(' • ') || 'Passeggiata consigliata nei dintorni'});
+  const fullNote = (museum.full || []).join(' • ');
+  return {museum: museum.name || '', hours: per, steps, full: fullNote, must: museum.must || [], alt: museum.alternative || []};
+}
+
+function renderItinerary(it, museumObj){
+  const box = $('planner-result'); box.innerHTML='';
+  const h = document.createElement('div'); h.innerHTML = `<div style="font-weight:800">${museumObj.name} — Itinerario ${it.hours}h</div><div class="muted" style="margin-top:6px">${museumObj.overview||''}</div>`;
+  box.appendChild(h);
+
+  // tabs
+  const tabs = document.createElement('div'); tabs.style.display='flex'; tabs.style.gap='8px'; tabs.style.marginTop='10px';
+  ['Must-to-see','Alternativo','Completo'].forEach(t=>{
+    const btn = document.createElement('button'); btn.className='btn btn-ghost'; btn.innerText=t;
+    btn.addEventListener('click', ()=>{
+      const routeArea = $('route-area'); if(!routeArea){ const r = document.createElement('div'); r.id='route-area'; r.className='route-box'; r.style.marginTop='10px'; box.appendChild(r); }
+      const route = t==='Must-to-see' ? it.must : t==='Alternativo' ? it.alt : [it.full];
+      $('route-area').innerHTML = `<div style="font-weight:700">${t}</div>`;
+      (Array.isArray(route) ? route : [route]).forEach(rtxt=>{
+        const p = document.createElement('div'); p.style.marginTop='8px'; p.innerHTML = `<div style="font-weight:600">• ${rtxt}</div>`; $('route-area').appendChild(p);
+      });
+    });
+    tabs.appendChild(btn);
+  });
+  box.appendChild(tabs);
+
+  // show default (Must)
+  const routebox = document.createElement('div'); routebox.id='route-area'; routebox.className='route-box'; routebox.style.marginTop='10px';
+  routebox.innerHTML = `<div style="font-weight:700">Must-to-see</div>`;
+  (it.must||[]).forEach(mk=>{ const p=document.createElement('div'); p.style.marginTop='8px'; p.innerHTML=`<div style="font-weight:600">• ${mk}</div>`; routebox.appendChild(p); });
+  box.appendChild(routebox);
+
+  // actions: add to timeline / personalize
+  const actions = document.createElement('div'); actions.style.marginTop='10px';
+  actions.innerHTML = `<button id="add-tl" class="btn btn-primary">Aggiungi alla timeline</button> <button id="personalize" class="btn btn-ghost">Personalizza orari</button>`;
+  box.appendChild(actions);
+  $('add-tl').addEventListener('click', ()=>{ addToTimeline(`${museumObj.name} — Itinerario ${it.hours}h`, it.steps); alert('Itinerario aggiunto alla timeline') });
+  $('personalize').addEventListener('click', ()=>{ alert('Editor avanzato disponibile: puoi spostare orari e aggiungere note.'); });
+}
+
+/* ---------------------------
+   Concierge: programma giornaliero + suggerimenti
+   --------------------------- */
+function conciergePlan(city, museumObj, itinerary){
+  const start = new Date(); start.setHours(10,30,0,0);
+  const steps = itinerary.steps.slice();
+  // Lunch suggestion
+  const foodCandidates = DB.services[city].food || [];
+  const lunch = foodCandidates.find(f => f.zone && museumObj.zone && f.zone===museumObj.zone) || foodCandidates[0] || {name:'Ristorante locale', zone:''};
+  steps.push({time: fmtTime(new Date(start.getTime() + itinerary.hours*60*60000)), title:`Pranzo consigliato: ${lunch.name}`, note:`Zona: ${lunch.zone} • Prenotazione consigliata`});
+  // Coffee
+  const cands = DB.services[city].coffee || [];
+  const coffee = cands[0] || {name:'Caffè vicino'};
+  steps.push({time: fmtTime(new Date(start.getTime() + (itinerary.hours*60+90)*60000)), title:`Caffè: ${coffee.name}`, note:'Sosta calda per scappare dal freddo'});
+  // Spa + manicure
+  const spa = (DB.services[city].spa||[])[0] || {name:'Centro benessere'};
+  steps.push({time: fmtTime(new Date(start.getTime() + (itinerary.hours*60+160)*60000)), title:`Relax: ${spa.name}`, note:'Massaggio o trattamento (verifica disponibilità)'});
+  const mani = (DB.services[city].manicure||[])[0] || {name:'Manicure locale'};
+  steps.push({time: fmtTime(new Date(start.getTime() + (itinerary.hours*60+260)*60000)), title:`Manicure: ${mani.name}`, note:'Appuntamento o walk-in possibile'});
+
+  return {city, museum: museumObj.name, steps, recommendations:{lunch, coffee, spa, manicure:mani}};
+}
+
+function renderConcierge(plan){
+  const box = $('planner-result'); box.innerHTML='';
+  const h = document.createElement('div'); h.innerHTML = `<div style="font-weight:800">Programma Concierge — ${plan.museum} (${plan.city})</div><div class="muted" style="margin-top:6px">Generato automaticamente</div>`;
+  box.appendChild(h);
+  plan.steps.forEach(s=>{
+    const it = document.createElement('div'); it.className='route-box'; it.style.marginTop='10px';
+    it.innerHTML = `<div style="font-weight:700">${s.time} — ${s.title}</div><div class="muted" style="margin-top:6px">${s.note}</div>`;
+    box.appendChild(it);
+  });
+  const actions = document.createElement('div'); actions.style.marginTop='10px';
+  actions.innerHTML = `<button id="add-conc" class="btn btn-primary">Aggiungi piano giornaliero</button> <button id="check-all" class="btn btn-ghost">Verifica locali (simulato)</button>`;
+  box.appendChild(actions);
+  $('add-conc').addEventListener('click', ()=>{ addToTimeline(`Concierge — ${plan.museum}`, plan.steps); alert('Piano aggiunto alla timeline') });
+  $('check-all').addEventListener('click', ()=>{
+    // sequential checks
+    checkReservation(plan.city, plan.recommendations.lunch.name, plan.recommendations.lunch.zone, plan.recommendations.lunch.link);
+    setTimeout(()=>checkReservation(plan.city, plan.recommendations.spa.name, plan.recommendations.spa.zone, plan.recommendations.spa.link), 500);
+    setTimeout(()=>checkReservation(plan.city, plan.recommendations.manicure.name, plan.recommendations.manicure.zone, ''), 900);
+  });
+}
+
+/* ---------------------------
+   Timeline helper
+   --------------------------- */
+function addToTimeline(title, steps){
+  const container = $('timeline-content');
+  if(container.innerText.trim() === 'Timeline non generata.') container.innerHTML='';
+  const wrapper = document.createElement('div'); wrapper.style.borderLeft='3px solid rgba(191,235,255,0.12)'; wrapper.style.padding='10px 12px'; wrapper.style.marginBottom='12px';
+  const head = document.createElement('div'); head.style.fontWeight='800'; head.innerText = title; wrapper.appendChild(head);
+  steps.forEach(s=>{
+    const r = document.createElement('div'); r.style.marginTop='8px'; r.innerHTML = `<div style="font-weight:600">${s.time} — ${s.title}</div><div class="muted" style="margin-top:4px">${s.note||''}</div>`; wrapper.appendChild(r);
+  });
+  container.appendChild(wrapper);
+}
+
+/* ---------------------------
+   Reservation simulation + walk-in alternative
+   --------------------------- */
+function checkReservation(city, name, zone, link){
+  const box = $('service-box');
+  const node = document.createElement('div'); node.style.marginBottom='10px';
+  node.innerHTML = `<div style="font-weight:700">${name} <span class="muted">— ${zone||''}</span></div><div class="muted" style="margin-top:6px">Controllo disponibilità in corso…</div>`;
+  box.prepend(node);
+  setTimeout(()=>{
+    const ok = Math.random() > 0.35; // 65% chance available
+    node.innerHTML = `<div style="font-weight:700">${name} <span class="muted">— ${zone||''}</span></div>`;
+    if(ok){
+      node.innerHTML += `<div class="muted">✅ Posti disponibili. ${link ? `<a href="${link}" target="_blank" style="color:var(--c-sugar)">Apri prenotazione</a>` : ''}</div>`;
+      node.innerHTML += `<div style="margin-top:8px"><button class="btn btn-primary" onclick="fakeBook('${name}')">Prenota (simulato)</button></div>`;
+    } else {
+      node.innerHTML += `<div class="muted">❌ Non disponibile per la fascia scelta.</div>`;
+      const alt = suggestAlternative(city, zone, name);
+      node.innerHTML += `<div class="muted" style="margin-top:8px">Alternativa walk-in suggerita: <strong>${alt.name}</strong> — ${alt.zone}</div>`;
+      node.innerHTML += `<div style="margin-top:8px"><button class="btn btn-ghost" onclick="openMap('${alt.name}','${alt.zone}')">Vai (map demo)</button></div>`;
+    }
+  }, 700 + Math.random()*900);
+}
+function fakeBook(name){ alert('Prenotazione simulata per: ' + name + '\n(Operazione demo — non effettua prenotazioni reali).'); }
+function suggestAlternative(city, zone, originalName){
+  const pool = [].concat(DB.services[city].food || [], DB.services[city].coffee || [], DB.services[city].spa || [], DB.services[city].manicure || []);
+  let candidates = pool.filter(p => p.name !== originalName && (p.zone === zone || !zone));
+  if(!candidates.length) candidates = pool.filter(p => p.name !== originalName);
+  return candidates[Math.floor(Math.random()*candidates.length)] || {name:'Locale vicino', zone:'vicino'};
+}
+function openMap(name, zone){ alert(`Mappa demo: ${name} (${zone}) — apri in Google Maps / Leaflet in integrazione reale.`); }
+
+/* ---------------------------
+   END
+   --------------------------- */
+</script>
 </body>
 </html>
